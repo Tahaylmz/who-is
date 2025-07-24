@@ -445,36 +445,152 @@ function displayMarketResults(analysis) {
     const resultsContainer = document.getElementById('marketResults');
     resultsContainer.innerHTML = '';
     
+    // Domain'leri grupla (aynı ana domain için)
+    const groupedResults = {};
     analysis.forEach(domain => {
-        const resultElement = document.createElement('div');
-        resultElement.className = 'result-item';
-        resultElement.innerHTML = `
-            <div class="result-info">
-                <div class="result-domain">${domain.name}</div>
-                <div class="result-details">
-                    ${domain.detailed ? `
-                        Category: ${domain.category} | 
-                        Age: ${domain.age} years | 
-                        SEO Score: ${domain.seoScore} | 
-                        Brandability: ${domain.brandability}
-                    ` : `
-                        Length: ${domain.length} chars | 
-                        Extension: ${domain.extension}
-                    `}
+        const mainDomain = domain.name.split('.')[0];
+        if (!groupedResults[mainDomain]) {
+            groupedResults[mainDomain] = [];
+        }
+        groupedResults[mainDomain].push(domain);
+    });
+    
+    Object.keys(groupedResults).forEach(mainDomain => {
+        const domains = groupedResults[mainDomain];
+        
+        if (domains.length === 1) {
+            // Tek domain (uzantı belirtilmiş)
+            const domain = domains[0];
+            const resultElement = document.createElement('div');
+            resultElement.className = 'result-item';
+            resultElement.innerHTML = `
+                <div class="result-info">
+                    <div class="result-domain">${domain.name}</div>
+                    <div class="result-details">
+                        ${domain.detailed ? `
+                            Category: ${domain.category} | 
+                            Age: ${domain.age} years | 
+                            SEO Score: ${domain.seoScore} | 
+                            Brandability: ${domain.brandability}
+                        ` : `
+                            Length: ${domain.length} chars | 
+                            Extension: ${domain.extension}
+                        `}
+                    </div>
                 </div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px; flex-direction: column; align-items: flex-end;">
-                <div style="font-size: 1.2rem; font-weight: 700; color: var(--success-color);">
-                    $${domain.estimatedValue.toLocaleString()}
+                <div style="display: flex; align-items: center; gap: 10px; flex-direction: column; align-items: flex-end;">
+                    <div style="font-size: 1.2rem; font-weight: 700; color: var(--success-color);">
+                        $${domain.estimatedValue.toLocaleString()}
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--secondary-color);">
+                        Investment Rating: ${domain.investmentRating}
+                    </div>
                 </div>
-                <div style="font-size: 0.9rem; color: var(--secondary-color);">
-                    Investment Rating: ${domain.investmentRating}
+            `;
+            resultsContainer.appendChild(resultElement);
+        } else {
+            // Çoklu domain (uzantı belirtilmemiş)
+            const groupElement = document.createElement('div');
+            groupElement.className = 'result-group';
+            groupElement.style.cssText = `
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                margin-bottom: 16px;
+                overflow: hidden;
+                background: var(--card-bg);
+            `;
+            
+            // Grup başlığı
+            const headerElement = document.createElement('div');
+            headerElement.style.cssText = `
+                background: var(--accent-color);
+                color: white;
+                padding: 12px 16px;
+                font-weight: 600;
+                font-size: 1.1rem;
+            `;
+            headerElement.innerHTML = `${mainDomain} - All Extensions Analysis (${domains[0].length} chars)`;
+            groupElement.appendChild(headerElement);
+            
+            // En yüksek değerli 3 uzantıyı göster
+            const topDomains = domains.sort((a, b) => b.estimatedValue - a.estimatedValue).slice(0, 3);
+            const topElement = document.createElement('div');
+            topElement.style.cssText = `
+                padding: 12px 16px;
+                background: rgba(34, 197, 94, 0.1);
+                border-bottom: 1px solid var(--border-color);
+            `;
+            topElement.innerHTML = `
+                <div style="font-weight: 600; margin-bottom: 8px; color: var(--success-color);">🏆 Top 3 Most Valuable:</div>
+                ${topDomains.map((domain, index) => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0;">
+                        <span>${index + 1}. ${domain.name}</span>
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <span style="font-weight: 600; color: var(--success-color);">$${domain.estimatedValue.toLocaleString()}</span>
+                            <span style="background: var(--accent-color); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">${domain.investmentRating}</span>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+            groupElement.appendChild(topElement);
+            
+            // Tüm uzantıları göster
+            const allElement = document.createElement('div');
+            allElement.style.cssText = `
+                padding: 12px 16px;
+            `;
+            allElement.innerHTML = `
+                <div style="font-weight: 600; margin-bottom: 8px;">📋 All Extensions:</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+                    ${domains.map(domain => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: var(--bg-color); border-radius: 6px; border: 1px solid var(--border-color);">
+                            <span style="font-weight: 500;">.${domain.extension}</span>
+                            <div style="display: flex; gap: 8px; align-items: center; font-size: 0.9rem;">
+                                <span style="color: var(--success-color); font-weight: 600;">$${domain.estimatedValue.toLocaleString()}</span>
+                                <span style="color: var(--secondary-color);">${domain.investmentRating}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            groupElement.appendChild(allElement);
+            
+            resultsContainer.appendChild(groupElement);
+        }
+    });
+    
+    // Özet bilgi
+    if (analysis.length > 1) {
+        const totalValue = analysis.reduce((sum, domain) => sum + domain.estimatedValue, 0);
+        const avgValue = Math.floor(totalValue / analysis.length);
+        const summaryElement = document.createElement('div');
+        summaryElement.style.cssText = `
+            background: var(--accent-color);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            text-align: center;
+        `;
+        summaryElement.innerHTML = `
+            <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 8px;">📊 Portfolio Summary</div>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 16px;">
+                <div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Total Domains</div>
+                    <div style="font-size: 1.3rem; font-weight: 700;">${analysis.length}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Total Portfolio Value</div>
+                    <div style="font-size: 1.3rem; font-weight: 700;">$${totalValue.toLocaleString()}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Average Value</div>
+                    <div style="font-size: 1.3rem; font-weight: 700;">$${avgValue.toLocaleString()}</div>
                 </div>
             </div>
         `;
-        
-        resultsContainer.appendChild(resultElement);
-    });
+        resultsContainer.appendChild(summaryElement);
+    }
 }
 
 // Configuration Functions
@@ -709,32 +825,173 @@ async function simulateTrendAnalysis(period, category) {
 async function simulateMarketAnalysis(domains, detailed) {
     await new Promise(resolve => setTimeout(resolve, domains.length * 300));
     
-    return domains.map(domain => {
+    const results = [];
+    
+    domains.forEach(domain => {
         // Domain'den uzantıyı çıkararak sadece ana domain uzunluğunu hesapla
         const domainParts = domain.split('.');
         const mainDomain = domainParts[0]; // Ana domain adı (uzantı hariç)
         const length = mainDomain.length;
-        const extension = domainParts.slice(1).join('.') || 'com'; // Uzantı kısmı
-        const baseValue = Math.floor(Math.random() * 50000 + 1000);
+        const hasExtension = domainParts.length > 1;
         
-        const analysis = {
-            name: domain,
-            length,
-            extension,
-            estimatedValue: baseValue,
-            investmentRating: ['A+', 'A', 'B+', 'B', 'C+', 'C'][Math.floor(Math.random() * 6)]
-        };
-        
-        if (detailed) {
-            analysis.detailed = true;
-            analysis.category = ['Tech', 'Business', 'Brandable', 'Generic', 'Geo'][Math.floor(Math.random() * 5)];
-            analysis.age = Math.floor(Math.random() * 20 + 1);
-            analysis.seoScore = Math.floor(Math.random() * 100);
-            analysis.brandability = Math.floor(Math.random() * 100);
+        if (hasExtension) {
+            // Uzantı belirtilmişse tek sonuç
+            const extension = domainParts.slice(1).join('.');
+            const baseValue = calculateDomainValue(mainDomain, extension);
+            
+            results.push({
+                name: domain,
+                length,
+                extension,
+                estimatedValue: baseValue,
+                investmentRating: getInvestmentRating(baseValue),
+                detailed: detailed,
+                ...(detailed && {
+                    category: getDomainCategory(mainDomain),
+                    age: Math.floor(Math.random() * 20 + 1),
+                    seoScore: getSEOScore(mainDomain, extension),
+                    brandability: getBrandabilityScore(mainDomain)
+                })
+            });
+        } else {
+            // Uzantı belirtilmemişse tüm popüler uzantılar için analiz
+            const popularExtensions = ['com', 'net', 'org', 'io', 'co', 'app', 'tech', 'ai', 'dev'];
+            
+            popularExtensions.forEach(ext => {
+                const fullDomain = `${mainDomain}.${ext}`;
+                const baseValue = calculateDomainValue(mainDomain, ext);
+                
+                results.push({
+                    name: fullDomain,
+                    length,
+                    extension: ext,
+                    estimatedValue: baseValue,
+                    investmentRating: getInvestmentRating(baseValue),
+                    detailed: detailed,
+                    ...(detailed && {
+                        category: getDomainCategory(mainDomain),
+                        age: Math.floor(Math.random() * 20 + 1),
+                        seoScore: getSEOScore(mainDomain, ext),
+                        brandability: getBrandabilityScore(mainDomain)
+                    })
+                });
+            });
         }
-        
-        return analysis;
     });
+    
+    return results;
+}
+
+// Domain değer hesaplama fonksiyonu (gerçekçi)
+function calculateDomainValue(mainDomain, extension) {
+    let baseValue = 100;
+    
+    // Uzunluk değeri
+    const length = mainDomain.length;
+    if (length <= 3) baseValue *= 50; // 3 harf çok değerli
+    else if (length <= 5) baseValue *= 20; // 4-5 harf değerli
+    else if (length <= 7) baseValue *= 8; // 6-7 harf orta
+    else if (length <= 10) baseValue *= 3; // 8-10 harf düşük
+    else baseValue *= 1; // 10+ harf çok düşük
+    
+    // Uzantı değeri
+    const extensionMultipliers = {
+        'com': 10,
+        'net': 3,
+        'org': 2.5,
+        'io': 8,
+        'co': 6,
+        'app': 7,
+        'tech': 5,
+        'ai': 15,
+        'dev': 4
+    };
+    baseValue *= (extensionMultipliers[extension] || 1);
+    
+    // Kelime değeri
+    const highValueWords = ['ai', 'tech', 'app', 'cloud', 'data', 'smart', 'auto', 'crypto', 'pay', 'shop'];
+    const mediumValueWords = ['web', 'net', 'pro', 'hub', 'lab', 'box', 'kit', 'zone', 'link', 'code'];
+    
+    const lowerDomain = mainDomain.toLowerCase();
+    if (highValueWords.some(word => lowerDomain.includes(word))) {
+        baseValue *= 3;
+    } else if (mediumValueWords.some(word => lowerDomain.includes(word))) {
+        baseValue *= 1.5;
+    }
+    
+    // Rastgelelik faktörü (%20)
+    const randomFactor = 0.8 + (Math.random() * 0.4);
+    baseValue *= randomFactor;
+    
+    return Math.floor(baseValue);
+}
+
+// Yatırım notunu hesapla
+function getInvestmentRating(value) {
+    if (value >= 50000) return 'A+';
+    if (value >= 20000) return 'A';
+    if (value >= 10000) return 'B+';
+    if (value >= 5000) return 'B';
+    if (value >= 1000) return 'C+';
+    return 'C';
+}
+
+// Domain kategorisi belirle
+function getDomainCategory(mainDomain) {
+    const categories = {
+        'tech': ['tech', 'ai', 'app', 'code', 'dev', 'web', 'net', 'cloud', 'data'],
+        'business': ['pro', 'corp', 'biz', 'company', 'shop', 'store', 'market'],
+        'brandable': ['smart', 'quick', 'fast', 'super', 'ultra', 'mega', 'max'],
+        'geo': ['city', 'local', 'global', 'world', 'earth'],
+        'generic': []
+    };
+    
+    const lowerDomain = mainDomain.toLowerCase();
+    for (const [category, words] of Object.entries(categories)) {
+        if (words.some(word => lowerDomain.includes(word))) {
+            return category.charAt(0).toUpperCase() + category.slice(1);
+        }
+    }
+    return 'Generic';
+}
+
+// SEO skorunu hesapla
+function getSEOScore(mainDomain, extension) {
+    let score = 50;
+    
+    // Uzunluk bonusu
+    if (mainDomain.length <= 8) score += 30;
+    else if (mainDomain.length <= 12) score += 15;
+    
+    // Uzantı bonusu
+    if (extension === 'com') score += 20;
+    else if (['net', 'org'].includes(extension)) score += 10;
+    
+    // Tire/sayı penaltisi
+    if (mainDomain.includes('-')) score -= 15;
+    if (/\d/.test(mainDomain)) score -= 10;
+    
+    return Math.min(Math.max(score, 0), 100);
+}
+
+// Marka değeri skorunu hesapla
+function getBrandabilityScore(mainDomain) {
+    let score = 50;
+    
+    // Telaffuz kolaylığı
+    const vowelCount = (mainDomain.match(/[aeiou]/g) || []).length;
+    const consonantCount = mainDomain.length - vowelCount;
+    if (vowelCount >= consonantCount * 0.2) score += 20;
+    
+    // Uzunluk
+    if (mainDomain.length <= 8) score += 20;
+    else if (mainDomain.length > 12) score -= 20;
+    
+    // Yaygın kelimeler (negatif)
+    const commonWords = ['the', 'and', 'for', 'web', 'site'];
+    if (commonWords.some(word => mainDomain.toLowerCase().includes(word))) score -= 15;
+    
+    return Math.min(Math.max(score, 0), 100);
 }
 
 async function simulateGetConfig() {
