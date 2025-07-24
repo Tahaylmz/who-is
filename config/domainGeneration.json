@@ -1,29 +1,29 @@
 {
-  "allowHyphens": true,
-  "allowNumbers": true,
-  "maxLength": 20,
-  "minLength": 3,
-  "preferredPatterns": {
-    "hyphenPosition": "middle",
-    "numberPosition": "end",
-    "maxNumbers": 3,
-    "numberTypes": [
-      "single",
-      "double",
-      "year",
-      "tech"
-    ]
-  },
-  "restrictions": {
-    "noStartWithHyphen": true,
-    "noEndWithHyphen": true,
-    "noConsecutiveHyphens": true,
-    "noStartWithNumber": true
-  },
-  "qualityBonus": {
-    "noHyphens": 15,
-    "noNumbers": 20,
-    "shortLength": 30,
-    "pronounceable": 25
-  }
+    "allowHyphens": true,
+    "allowNumbers": true,
+    "maxLength": 20,
+    "minLength": 3,
+    "preferredPatterns": {
+        "hyphenPosition": "middle",
+        "numberPosition": "end",
+        "maxNumbers": 3,
+        "numberTypes": [
+            "single",
+            "double",
+            "year",
+            "tech"
+        ]
+    },
+    "restrictions": {
+        "noStartWithHyphen": true,
+        "noEndWithHyphen": true,
+        "noConsecutiveHyphens": true,
+        "noStartWithNumber": true
+    },
+    "qualityBonus": {
+        "noHyphens": 15,
+        "noNumbers": 20,
+        "shortLength": 30,
+        "pronounceable": 25
+    }
 }

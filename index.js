@@ -10,25 +10,25 @@ const { setupMonitorCommand } = require('./commands/monitor');
 const { setupConfigShowCommand, setupConfigAddCommand, setupConfigRemoveCommand, setupConfigSetCommand, setupConfigResetCommand } = require('./commands/config');
 const { setupAICommand } = require('./commands/ai');
 const { setupTrendCommand } = require('./commands/trend');
-const { 
-  setupDomainConfigShowCommand, 
-  setupDomainConfigHyphensCommand, 
-  setupDomainConfigNumbersCommand, 
-  setupDomainConfigLengthCommand,
-  setupDomainConfigHyphenPositionCommand,
-  setupDomainConfigNumberPositionCommand,
-  setupDomainConfigMaxNumbersCommand,
-  setupDomainConfigResetCommand,
-  setupDomainConfigTestCommand 
+const {
+    setupDomainConfigShowCommand,
+    setupDomainConfigHyphensCommand,
+    setupDomainConfigNumbersCommand,
+    setupDomainConfigLengthCommand,
+    setupDomainConfigHyphenPositionCommand,
+    setupDomainConfigNumberPositionCommand,
+    setupDomainConfigMaxNumbersCommand,
+    setupDomainConfigResetCommand,
+    setupDomainConfigTestCommand
 } = require('./commands/domainConfig');
 
 const program = new Command();
 
 // Ana program konfigürasyonu
 program
-  .name('who-is')
-  .description('Çok hızlı web sitesi durum kontrol sistemi')
-  .version('1.0.0');
+    .name('who-is')
+    .description('Çok hızlı web sitesi durum kontrol sistemi')
+    .version('1.0.0');
 
 // Komutları kurulum
 setupCheckCommand(program);
@@ -69,7 +69,7 @@ setupDomainConfigTestCommand(program);
 
 // Program başlat
 if (require.main === module) {
-  program.parse();
+    program.parse();
 }
 
 module.exports = program;

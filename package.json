@@ -1,44 +1,44 @@
 {
-  "name": "who-is-site-checker",
-  "version": "1.0.0",
-  "description": "Çok hızlı web sitesi durum kontrol sistemi",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "node --watch index.js",
-    "test": "node test.js"
-  },
-  "keywords": [
-    "website",
-    "checker",
-    "monitoring",
-    "uptime",
-    "fast",
-    "domain",
-    "availability",
-    "whois",
-    "dns",
-    "hunting",
-    "turkish",
-    "english"
-  ],
-  "author": "Taha Yılmaz <tahayilmazdev@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Tahaylmz/who-is-site-checker.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Tahaylmz/who-is-site-checker/issues"
-  },
-  "homepage": "https://github.com/Tahaylmz/who-is-site-checker#readme",
-  "dependencies": {
-    "axios": "^1.11.0",
-    "chalk": "^4.1.2",
-    "cli-table3": "^0.6.3",
-    "commander": "^11.1.0",
-    "dns-lookup": "^0.1.0",
-    "random-words": "^2.0.1",
-    "whois": "^2.15.0"
-  }
+    "name": "who-is-site-checker",
+    "version": "1.0.0",
+    "description": "Çok hızlı web sitesi durum kontrol sistemi",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "node --watch index.js",
+        "test": "node test.js"
+    },
+    "keywords": [
+        "website",
+        "checker",
+        "monitoring",
+        "uptime",
+        "fast",
+        "domain",
+        "availability",
+        "whois",
+        "dns",
+        "hunting",
+        "turkish",
+        "english"
+    ],
+    "author": "Taha Yılmaz <tahayilmazdev@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Tahaylmz/who-is-site-checker.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Tahaylmz/who-is-site-checker/issues"
+    },
+    "homepage": "https://github.com/Tahaylmz/who-is-site-checker#readme",
+    "dependencies": {
+        "axios": "^1.11.0",
+        "chalk": "^4.1.2",
+        "cli-table3": "^0.6.3",
+        "commander": "^11.1.0",
+        "dns-lookup": "^0.1.0",
+        "random-words": "^2.0.1",
+        "whois": "^2.15.0"
+    }
 }
