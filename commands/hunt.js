@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const DomainGenerator = require('../domain-generator');
+const AIDomainGenerator = require('../aiDomainGenerator');
 const SiteChecker = require('../checker');
 const ExtensionConfig = require('../utils/extensionConfig');
 
@@ -8,17 +9,21 @@ function setupHuntCommand(program) {
   program
     .command('hunt')
     .description('Sürekli rastgele domain üretip müsait olanları arar ve dosyaya kaydeder')
-    .option('-c, --categories <cats>', 'Aranacak kategoriler (virgülle ayırın)', 'one-letter,two-letter,three-letter,turkish,english,tech,business')
+    .option('-c, --categories <cats>', 'Aranacak kategoriler (virgülle ayırın)', 'premium,tech,business,creative,health,ecommerce,short,numbers')
+    .option('-s, --sector <sector>', 'Belirli sektör için akıllı domain üretimi (tech,business,creative,health,ecommerce)', null)
+    .option('--ai', 'Yapay zeka destekli domain üretimi kullan', false)
     .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
     .option('-i, --interval <ms>', 'Kontroller arası bekleme süresi (milisaniye)', '2000')
     .option('-l, --limit <num>', 'Maksimum domain sayısı (0=sınırsız)', '0')
     .option('--stats-interval <sec>', 'İstatistik gösterme aralığı (saniye)', '30')
     .action(async (options) => {
-      const generator = new DomainGenerator();
+      const generator = options.ai ? new AIDomainGenerator() : new DomainGenerator();
       const checker = new SiteChecker();
       const config = new ExtensionConfig();
       
       const categories = options.categories.split(',').map(c => c.trim());
+      const sector = options.sector;
+      const useAI = options.ai;
       
       // Uzantıları belirle: parametre > konfigürasyon
       const extensions = options.extensions 
@@ -29,8 +34,14 @@ function setupHuntCommand(program) {
       const limit = parseInt(options.limit);
       const statsInterval = parseInt(options.statsInterval) * 1000;
 
-      console.log(chalk.green('🚀 DOMAIN HUNTING BAŞLATILIYOR...'));
+      console.log(chalk.green(`🚀 ${useAI ? 'AI DESTEKLI' : 'AKILLI'} DOMAIN HUNTING BAŞLATILIYOR...`));
       console.log(chalk.blue(`📋 Kategoriler: ${categories.join(', ')}`));
+      if (sector) {
+        console.log(chalk.yellow(`🎯 Sektör Odaklı: ${sector}`));
+      }
+      if (useAI) {
+        console.log(chalk.magenta(`🤖 AI Generator: ${generator.useAI ? 'OpenAI API' : 'Yerel AI Algoritması'}`));
+      }
       console.log(chalk.blue(`🌐 Uzantılar: ${extensions.join(', ')}`));
       console.log(chalk.blue(`⏱️  Interval: ${interval}ms`));
       console.log(chalk.blue(`🎯 Limit: ${limit === 0 ? 'Sınırsız' : limit}`));
@@ -53,6 +64,9 @@ function setupHuntCommand(program) {
           console.log(chalk.green(`   ✅ Müsait: ${data.available}`));
           console.log(chalk.red(`   ❌ Alınmış: ${data.taken}`));
           console.log(chalk.blue(`   📊 Toplam: ${data.total} (Başarı: ${data.successRate})`));
+          if (data.avgQuality !== 'N/A') {
+            console.log(chalk.magenta(`   🎯 Ortalama Kalite: ${data.avgQuality}`));
+          }
         }
         
         console.log(chalk.gray('='.repeat(50)));
@@ -79,12 +93,26 @@ function setupHuntCommand(program) {
       // Ana döngü
       while (isRunning && (limit === 0 || totalChecked < limit)) {
         try {
-          // Rastgele kategori seç
-          const category = categories[Math.floor(Math.random() * categories.length)];
+          let domain;
+          let category;
           
-          // Domain üret
-          const domains = generator.generateCategorizedDomains(category, 1);
-          const domain = domains[0];
+          if (sector) {
+            // Sektör odaklı akıllı domain üretimi
+            if (useAI && generator.generateAIDomains) {
+              const aiDomains = await generator.generateAIDomains(sector, 1);
+              domain = aiDomains[0];
+            } else {
+              domain = generator.generateSmartDomain(sector, 'professional');
+            }
+            category = sector;
+          } else {
+            // Rastgele kategori seç
+            category = categories[Math.floor(Math.random() * categories.length)];
+            
+            // Domain üret (AI veya standart)
+            const domains = await generator.generateCategorizedDomains(category, 1);
+            domain = domains[0];
+          }
 
           // Her uzantı için kontrol et
           for (const extension of extensions) {
@@ -92,8 +120,11 @@ function setupHuntCommand(program) {
             
             const fullDomain = domain + extension;
             
-            // Progress göster
-            process.stdout.write(chalk.gray(`🔍 ${fullDomain} kontrol ediliyor... `));
+            // Kalite puanını hesapla
+            const quality = generator.evaluateDomainQuality(domain);
+            
+            // Progress göster (kalite puanı ile)
+            process.stdout.write(chalk.gray(`🔍 ${fullDomain} (Q:${quality}/100) kontrol ediliyor... `));
             
             try {
               const result = await checker.checkDomainAvailability(fullDomain);
@@ -101,7 +132,7 @@ function setupHuntCommand(program) {
 
               if (result.availability === 'available') {
                 totalFound++;
-                console.log(chalk.green(`✅ MÜSAİT!`));
+                console.log(chalk.green(`✅ MÜSAİT! 🎯 Kalite: ${quality}/100`));
                 
                 // Dosyaya kaydet
                 await generator.saveAvailableDomain(domain, extension, category, result);

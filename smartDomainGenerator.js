@@ -2,7 +2,7 @@ const randomWords = require('random-words');
 const fs = require('fs');
 const path = require('path');
 
-class DomainGenerator {
+class SmartDomainGenerator {
   constructor() {
     // Sektör bazlı kelime kategorileri
     this.sectors = {
@@ -68,60 +68,6 @@ class DomainGenerator {
       innovation: ['new', 'fresh', 'modern', 'next', 'future'],
       success: ['win', 'success', 'achieve', 'excel', 'prime']
     };
-
-    // Eski Türkçe kelime listesi (geriye uyumluluk için)
-    this.turkishWords = [
-      'güzel', 'hızlı', 'akıllı', 'modern', 'dijital', 'teknoloji', 'yazılım', 'web', 'mobil', 'online',
-      'inovasyon', 'çözüm', 'sistem', 'platform', 'uygulama', 'servis', 'hizmet', 'proje', 'firma', 'şirket',
-      'ticaret', 'satış', 'pazarlama', 'reklam', 'tasarım', 'grafik', 'sanat', 'müzik', 'oyun', 'eğlence',
-      'spor', 'sağlık', 'tıp', 'doktor', 'hastane', 'eczane', 'diyet', 'fitness', 'yoga', 'meditasyon',
-      'seyahat', 'turizm', 'otel', 'restoran', 'cafe', 'mutfak', 'yemek', 'tarif', 'kitap', 'okul',
-      'öğretmen', 'öğrenci', 'ders', 'kurs', 'eğitim', 'akademi', 'üniversite', 'kolej', 'kreş', 'anaokul',
-      'aile', 'çocuk', 'bebek', 'anne', 'baba', 'kardeş', 'arkadaş', 'sevgili', 'evlilik', 'düğün',
-      'ev', 'villa', 'daire', 'ofis', 'mağaza', 'fabrika', 'atölye', 'stüdyo', 'galeri', 'müze',
-      'park', 'bahçe', 'çiçek', 'ağaç', 'orman', 'deniz', 'göl', 'nehir', 'dağ', 'tepe',
-      'şehir', 'kasaba', 'köy', 'mahalle', 'sokak', 'cadde', 'meydan', 'köprü', 'tünel', 'yol',
-      'araba', 'otobüs', 'tren', 'uçak', 'gemi', 'bisiklet', 'motosiklet', 'taksi', 'metro', 'tramvay',
-      'para', 'altın', 'gümüş', 'mücevher', 'saat', 'telefon', 'bilgisayar', 'tablet', 'kamera', 'televizyon',
-      'müzik', 'şarkı', 'dans', 'tiyatro', 'sinema', 'konser', 'festival', 'etkinlik', 'parti', 'kutlama',
-      'başarı', 'kazanç', 'kar', 'gelir', 'yatırım', 'borsa', 'finans', 'banka', 'kredi', 'sigorta',
-      'güvenlik', 'koruma', 'alarm', 'kamera', 'şifre', 'kilit', 'anahtar', 'kapı', 'pencere', 'duvar'
-    ];
-
-    // İngilizce ek kelimeler (random-words paketine ek)
-    this.englishWords = [
-      'smart', 'fast', 'modern', 'digital', 'tech', 'software', 'web', 'mobile', 'online', 'cloud',
-      'innovation', 'solution', 'system', 'platform', 'app', 'service', 'business', 'company', 'startup',
-      'commerce', 'shop', 'store', 'market', 'brand', 'design', 'creative', 'studio', 'agency', 'media',
-      'social', 'network', 'connect', 'share', 'community', 'forum', 'blog', 'news', 'info', 'data',
-      'analytics', 'insight', 'report', 'dashboard', 'tool', 'kit', 'suite', 'pro', 'plus', 'premium',
-      'elite', 'master', 'expert', 'guru', 'ninja', 'wizard', 'magic', 'power', 'boost', 'turbo',
-      'super', 'ultra', 'mega', 'max', 'prime', 'gold', 'silver', 'platinum', 'diamond', 'crystal',
-      'pure', 'fresh', 'clean', 'green', 'eco', 'bio', 'organic', 'natural', 'healthy', 'wellness',
-      'fitness', 'sport', 'game', 'play', 'fun', 'joy', 'happy', 'smile', 'laugh', 'love',
-      'care', 'help', 'support', 'guide', 'mentor', 'coach', 'trainer', 'teacher', 'learn', 'study'
-    ];
-
-    // Yaygın domain kalıpları
-    this.patterns = [
-      'single',           // tek kelime
-      'compound',         // iki kelime birleşik
-      'hyphenated',       // tire ile ayrılmış
-      'numbered',         // sayı ile
-      'prefixed',         // ön ek ile
-      'suffixed',         // son ek ile
-      'abbreviated',      // kısaltılmış
-      'branded'           // marka tipi
-    ];
-
-    // Ön ekler
-    this.prefixes = ['get', 'my', 'the', 'best', 'top', 'pro', 'ez', 'quick', 'fast', 'smart'];
-    
-    // Son ekler
-    this.suffixes = ['app', 'hub', 'lab', 'box', 'kit', 'pro', 'plus', 'max', 'net', 'tech'];
-
-    // Sayılar
-    this.numbers = ['1', '2', '3', '24', '365', '360', '101', '123', '247', '911'];
 
     this.resultFiles = new Map();
   }
@@ -329,181 +275,7 @@ class DomainGenerator {
   }
 
   /**
-   * Premium domain üretir
-   */
-  generatePremiumDomain() {
-    const premiumStrategies = [
-      () => this.generateAiInspired('tech').substring(0, 4),
-      () => this.trendWords.tech[Math.floor(Math.random() * this.trendWords.tech.length)],
-      () => 'get' + this.generateAiInspired('business').substring(0, 4),
-      () => this.psychologyWords.success[Math.floor(Math.random() * this.psychologyWords.success.length)]
-    ];
-    
-    const strategy = premiumStrategies[Math.floor(Math.random() * premiumStrategies.length)];
-    return strategy();
-  }
-
-  /**
-   * Domain kalitesini değerlendirir
-   */
-  evaluateDomainQuality(domain) {
-    let score = 0;
-    
-    // Uzunluk puanı
-    if (domain.length >= 3 && domain.length <= 8) score += 30;
-    else if (domain.length <= 12) score += 20;
-    else score += 10;
-    
-    // Telaffuz puanı
-    const vowelCount = (domain.match(/[aeiou]/g) || []).length;
-    const consonantCount = domain.length - vowelCount;
-    if (vowelCount >= consonantCount * 0.3 && vowelCount <= consonantCount * 0.8) score += 25;
-    
-    // Hatırlanabilirlik
-    if (!/\d/.test(domain)) score += 20; // Sayı yok
-    if (!/-/.test(domain)) score += 15; // Tire yok
-    if (/^[a-z]/.test(domain)) score += 10; // Harfle başlıyor
-    
-    return Math.min(score, 100);
-  }
-
-  /**
-   * Domain'i temizler ve optimize eder
-   */
-  cleanDomain(domain) {
-    return domain
-      .toLowerCase()
-      .replace(/ğ/g, 'g')
-      .replace(/ü/g, 'u')
-      .replace(/ş/g, 's')
-      .replace(/ı/g, 'i')
-      .replace(/ö/g, 'o')
-      .replace(/ç/g, 'c')
-      .replace(/[^a-z0-9-]/g, '')
-      .replace(/--+/g, '-')
-      .replace(/^-|-$/g, '')
-      .substring(0, 20);
-  }
-
-  /**
-   * Rastgele Türkçe kelime üretir
-   */
-  getRandomTurkishWord() {
-    return this.turkishWords[Math.floor(Math.random() * this.turkishWords.length)];
-  }
-
-  /**
-   * Rastgele İngilizce kelime üretir
-   */
-  getRandomEnglishWord() {
-    // %50 ihtimalle random-words paketi, %50 ihtimalle kendi listemiz
-    try {
-      if (Math.random() < 0.5) {
-        const words = randomWords({ exactly: 1, maxLength: 10 });
-        return words[0];
-      } else {
-        return this.englishWords[Math.floor(Math.random() * this.englishWords.length)];
-      }
-    } catch (error) {
-      // Fallback to our own list
-      return this.englishWords[Math.floor(Math.random() * this.englishWords.length)];
-    }
-  }
-
-  /**
-   * Rastgele anlamlı domain üretir
-   */
-  generateDomain(language = 'mixed') {
-    const pattern = this.patterns[Math.floor(Math.random() * this.patterns.length)];
-    let domain = '';
-
-    switch (pattern) {
-      case 'single':
-        domain = language === 'turkish' ? this.getRandomTurkishWord() : 
-                language === 'english' ? this.getRandomEnglishWord() :
-                Math.random() < 0.5 ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        break;
-
-      case 'compound':
-        if (language === 'turkish') {
-          domain = this.getRandomTurkishWord() + this.getRandomTurkishWord();
-        } else if (language === 'english') {
-          domain = this.getRandomEnglishWord() + this.getRandomEnglishWord();
-        } else {
-          // Karışık: bazen türkçe-türkçe, bazen ingilizce-ingilizce, bazen karışık
-          const rand = Math.random();
-          if (rand < 0.4) {
-            domain = this.getRandomTurkishWord() + this.getRandomTurkishWord();
-          } else if (rand < 0.8) {
-            domain = this.getRandomEnglishWord() + this.getRandomEnglishWord();
-          } else {
-            domain = this.getRandomTurkishWord() + this.getRandomEnglishWord();
-          }
-        }
-        break;
-
-      case 'hyphenated':
-        const word1 = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        const word2 = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        domain = word1 + '-' + word2;
-        break;
-
-      case 'numbered':
-        const baseWord = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        const number = this.numbers[Math.floor(Math.random() * this.numbers.length)];
-        domain = Math.random() < 0.5 ? baseWord + number : number + baseWord;
-        break;
-
-      case 'prefixed':
-        const prefix = this.prefixes[Math.floor(Math.random() * this.prefixes.length)];
-        const mainWord = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        domain = prefix + mainWord;
-        break;
-
-      case 'suffixed':
-        const rootWord = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        const suffix = this.suffixes[Math.floor(Math.random() * this.suffixes.length)];
-        domain = rootWord + suffix;
-        break;
-
-      case 'abbreviated':
-        const fullWord = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        domain = fullWord.substring(0, Math.min(4, fullWord.length)) + 
-                this.getRandomEnglishWord().substring(0, 3);
-        break;
-
-      case 'branded':
-        // Marka tipi isimler (kısaltma + kelime)
-        const brandPart = (language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord())
-          .substring(0, 3);
-        const businessPart = this.getRandomEnglishWord();
-        domain = brandPart + businessPart;
-        break;
-    }
-
-    // Türkçe karakterleri temizle
-    domain = domain
-      .toLowerCase()
-      .replace(/ğ/g, 'g')
-      .replace(/ü/g, 'u')
-      .replace(/ş/g, 's')
-      .replace(/ı/g, 'i')
-      .replace(/ö/g, 'o')
-      .replace(/ç/g, 'c')
-      .replace(/[^a-z0-9-]/g, '');
-
-    // Domain uzunluğunu kontrol et (3-20 karakter arası)
-    if (domain.length < 3) {
-      domain += this.getRandomEnglishWord().substring(0, 3);
-    } else if (domain.length > 20) {
-      domain = domain.substring(0, 20);
-    }
-
-    return domain;
-  }
-
-  /**
-   * Belirtilen kategoride domain üretir
+   * Kategoriye göre akıllı domain üretir
    */
   generateCategorizedDomains(category = 'general', count = 1) {
     const domains = [];
@@ -587,14 +359,6 @@ class DomainGenerator {
           domain = this.generatePremiumDomain();
           break;
           
-        case 'turkish':
-          domain = this.generateDomain('turkish');
-          break;
-          
-        case 'english':
-          domain = this.generateDomain('english');
-          break;
-          
         default:
           domain = this.generateGeneralDomain('balanced');
       }
@@ -603,6 +367,63 @@ class DomainGenerator {
     }
 
     return domains;
+  }
+
+  /**
+   * Premium domain üretir
+   */
+  generatePremiumDomain() {
+    const premiumStrategies = [
+      () => this.generateAiInspired('tech').substring(0, 4),
+      () => this.trendWords.tech[Math.floor(Math.random() * this.trendWords.tech.length)],
+      () => 'get' + this.generateAiInspired('business').substring(0, 4),
+      () => this.psychologyWords.success[Math.floor(Math.random() * this.psychologyWords.success.length)]
+    ];
+    
+    const strategy = premiumStrategies[Math.floor(Math.random() * premiumStrategies.length)];
+    return strategy();
+  }
+
+  /**
+   * Domain'i temizler ve optimize eder
+   */
+  cleanDomain(domain) {
+    return domain
+      .toLowerCase()
+      .replace(/ğ/g, 'g')
+      .replace(/ü/g, 'u')
+      .replace(/ş/g, 's')
+      .replace(/ı/g, 'i')
+      .replace(/ö/g, 'o')
+      .replace(/ç/g, 'c')
+      .replace(/[^a-z0-9-]/g, '')
+      .replace(/--+/g, '-')
+      .replace(/^-|-$/g, '')
+      .substring(0, 20);
+  }
+
+  /**
+   * Domain kalitesini değerlendirir
+   */
+  evaluateDomainQuality(domain) {
+    let score = 0;
+    
+    // Uzunluk puanı
+    if (domain.length >= 3 && domain.length <= 8) score += 30;
+    else if (domain.length <= 12) score += 20;
+    else score += 10;
+    
+    // Telaffuz puanı
+    const vowelCount = (domain.match(/[aeiou]/g) || []).length;
+    const consonantCount = domain.length - vowelCount;
+    if (vowelCount >= consonantCount * 0.3 && vowelCount <= consonantCount * 0.8) score += 25;
+    
+    // Hatırlanabilirlik
+    if (!/\d/.test(domain)) score += 20; // Sayı yok
+    if (!/-/.test(domain)) score += 15; // Tire yok
+    if (/^[a-z]/.test(domain)) score += 10; // Harfle başlıyor
+    
+    return Math.min(score, 100);
   }
 
   /**
@@ -674,7 +495,6 @@ class DomainGenerator {
         await fs.promises.unlink(path.join(resultsDir, file));
       }
       
-      // Eğer klasör boşsa, klasörü de sil
       const remainingFiles = await fs.promises.readdir(resultsDir);
       if (remainingFiles.length === 0) {
         await fs.promises.rmdir(resultsDir);
@@ -689,4 +509,4 @@ class DomainGenerator {
   }
 }
 
-module.exports = DomainGenerator;
+module.exports = SmartDomainGenerator;

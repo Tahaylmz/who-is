@@ -8,6 +8,8 @@ const { setupCheckDomainCommand, setupCheckDomainsCommand, setupCheckAvailabilit
 const { setupHuntCommand, setupHuntStatsCommand, setupHuntClearCommand } = require('./commands/hunt');
 const { setupMonitorCommand } = require('./commands/monitor');
 const { setupConfigShowCommand, setupConfigAddCommand, setupConfigRemoveCommand, setupConfigSetCommand, setupConfigResetCommand } = require('./commands/config');
+const { setupAICommand } = require('./commands/ai');
+const { setupTrendCommand } = require('./commands/trend');
 
 const program = new Command();
 
@@ -36,6 +38,12 @@ setupConfigAddCommand(program);
 setupConfigRemoveCommand(program);
 setupConfigSetCommand(program);
 setupConfigResetCommand(program);
+
+// AI komutları
+setupAICommand(program);
+
+// Trend analizi komutları
+setupTrendCommand(program);
 
 // Program başlat
 if (require.main === module) {
