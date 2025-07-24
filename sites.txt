@@ -1,0 +1,37 @@
+# Örnek site listesi dosyası
+# Yorumlar # ile başlar ve atlanır
+
+# Popüler siteler
+google.com
+github.com
+stackoverflow.com
+youtube.com
+
+# Sosyal medya
+facebook.com
+twitter.com
+instagram.com
+linkedin.com
+
+# Türk siteleri
+hurriyet.com.tr
+milliyet.com.tr
+sabah.com.tr
+haberturk.com
+
+# Teknoloji
+microsoft.com
+apple.com
+amazon.com
+netflix.com
+
+# Arama motorları
+bing.com
+duckduckgo.com
+yandex.com
+
+# Geliştirici kaynakları
+npmjs.com
+pypi.org
+packagist.org
+maven.apache.org
