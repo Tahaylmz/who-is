@@ -2,7 +2,34 @@
 
 - ⚡ **Çok Hızlı**: Paralel isteklerle yüzlerce siteyi saniyeler içinde kontrol
 - 🎯 **Akıllı Analiz**: HTTP status kodları, yanıt süreleri ve server bilgileri
-- 🌐 **Domain Uzantı Kontrolü**: .com, .com.tr, .net gibi farklı uzantıları otomatik kontrol
+- 🌐 **Domain Uzantı Kontrolü**: .com,## 🔧 Proje Yapısı
+
+```
+who-is/
+├── 📁 commands/           # Komut modülleri
+│   ├── check.js          # Site kontrol komutları
+│   ├── domain.js         # Domain işlemleri
+│   ├── hunt.js           # Domain hunting sistemi
+│   └── monitor.js        # İzleme komutları
+├── 📁 utils/             # Yardımcı modüller
+│   └── display.js        # Sonuç görüntüleme fonksiyonları
+├── 📁 domain-results/    # Sonuç dosyaları
+│   ├── general-domains.txt
+│   ├── tech-domains.txt
+│   └── ...
+├── 📄 index.js           # Ana CLI programı
+├── 📄 checker.js         # Site kontrol motoru
+├── 📄 domain-generator.js # Domain üretim sistemi
+└── 📄 test.js           # Test süiti
+```
+
+### Modüler Tasarım
+- **Komutlar**: Her komut grubu ayrı dosyada organize edilmiş
+- **Görüntüleme**: Tüm çıktı formatları merkezi display modülünde
+- **Temiz Kod**: Tek sorumluluk prensibi uygulanmış
+- **Kolay Bakım**: Yeni komutlar kolayca eklenebilir
+
+## 🔧 Programmatik Kullanım.com.tr, .net gibi farklı uzantıları otomatik kontrol
 - 🔍 **Domain Availability**: DNS ve WHOIS sorguları ile domain satın alınıp alınmadığını kontrol
 - 🎰 **Domain Hunting**: Sürekli rastgele anlamlı domain'leri tarayıp müsait olanları bulma
 - 📊 **Gerçek Zamanlı İzleme**: Sürekli izleme modu ile anlık durumu takip
