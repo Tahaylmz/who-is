@@ -146,8 +146,49 @@ async function runTests() {
 
   console.log();
 
-  // Test 9: Gerçek availability kontrolü
-  console.log(chalk.yellow('Test 9: Gerçek availability kontrolü'));
+  // Test 9: Dosya organizasyonu testi
+  console.log(chalk.yellow('Test 9: Dosya organizasyonu testi'));
+  try {
+    const generator = new DomainGenerator();
+    const fs = require('fs');
+    const path = require('path');
+    
+    // Test domain kaydetme
+    console.log(chalk.gray('   Test domain dosyaya kaydediliyor...'));
+    const testResult = {
+      availability: 'available',
+      registrar: 'Test Registrar'
+    };
+    
+    await generator.saveAvailableDomain('testdomain123', '.com', 'test-category', testResult);
+    
+    // Dosya varlığını kontrol et
+    const resultsDir = 'domain-results';
+    const testFile = path.join(resultsDir, 'test-category-domains.txt');
+    
+    if (fs.existsSync(testFile)) {
+      console.log(chalk.green('✅ Dosya başarıyla oluşturuldu: ' + testFile));
+      
+      // Dosya içeriğini kontrol et
+      const content = await fs.promises.readFile(testFile, 'utf8');
+      const lines = content.split('\n').filter(line => line.trim());
+      console.log(chalk.gray(`   📄 Dosyada ${lines.length} kayıt bulundu`));
+      
+      if (lines.length > 0) {
+        console.log(chalk.gray(`   💾 Son kayıt: ${lines[lines.length - 1].substring(0, 50)}...`));
+      }
+    } else {
+      console.log(chalk.red('❌ Dosya oluşturulamadı'));
+    }
+    
+  } catch (error) {
+    console.log(chalk.red('❌ Test hatası:'), error.message);
+  }
+
+  console.log();
+
+  // Test 10: Gerçek availability kontrolü
+  console.log(chalk.yellow('Test 10: Gerçek availability kontrolü'));
   try {
     console.log(chalk.gray('   Google domain kontrol ediliyor...'));
     const googleResult = await checker.checkDomainAvailability('google.com');
@@ -167,6 +208,7 @@ async function runTests() {
   console.log(chalk.green('🎉 Tüm testler tamamlandı!'));
   console.log(chalk.blue('💡 Domain hunting başlatmak için: node index.js hunt'));
   console.log(chalk.blue('📊 İstatistikleri görmek için: node index.js hunt-stats'));
+  console.log(chalk.blue('📁 Sonuçlar domain-results/ klasöründe kategorilere göre saklanır'));
 }
 
 if (require.main === module) {

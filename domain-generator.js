@@ -234,9 +234,17 @@ class DomainGenerator {
    * Müsait domain'leri dosyaya kaydeder
    */
   async saveAvailableDomain(domain, extension, category, result) {
-    const fileName = `${category}-available-domains.txt`;
+    // Sonuçlar klasörünü oluştur
+    const resultsDir = 'domain-results';
+    if (!fs.existsSync(resultsDir)) {
+      await fs.promises.mkdir(resultsDir, { recursive: true });
+    }
+
+    // Kategori dosyasının yolu
+    const fileName = path.join(resultsDir, `${category}-domains.txt`);
     const timestamp = new Date().toISOString();
-    const line = `${domain}${extension} | ${result.availability} | ${timestamp} | Registrar: ${result.registrar || 'None'}\n`;
+    const status = result.availability === 'available' ? '✅ MÜSAİT' : '❌ ALINMIŞ';
+    const line = `${domain}${extension} | ${status} | ${timestamp} | Registrar: ${result.registrar || 'None'}\n`;
 
     try {
       await fs.promises.appendFile(fileName, line);
@@ -279,11 +287,22 @@ class DomainGenerator {
    */
   async clearResults() {
     try {
-      const files = await fs.promises.readdir('.');
-      const resultFiles = files.filter(file => file.endsWith('-available-domains.txt'));
+      const resultsDir = 'domain-results';
+      if (!fs.existsSync(resultsDir)) {
+        return 0;
+      }
+
+      const files = await fs.promises.readdir(resultsDir);
+      const resultFiles = files.filter(file => file.endsWith('-domains.txt'));
       
       for (const file of resultFiles) {
-        await fs.promises.unlink(file);
+        await fs.promises.unlink(path.join(resultsDir, file));
+      }
+      
+      // Eğer klasör boşsa, klasörü de sil
+      const remainingFiles = await fs.promises.readdir(resultsDir);
+      if (remainingFiles.length === 0) {
+        await fs.promises.rmdir(resultsDir);
       }
       
       this.resultFiles.clear();

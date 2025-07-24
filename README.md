@@ -195,7 +195,28 @@ bbc.com
 3. **Interval**: İzleme modunda gereksiz yere sık kontrol yapmayın
 4. **Liste Dosyası**: Yorumları (#) kullanarak gruplandırın
 
-## 🔧 Programmatik Kullanım
+## � Sonuç Dosyaları
+
+Bulunan domain'ler otomatik olarak `domain-results/` klasörü altında kategorilere göre organize edilir:
+
+```
+domain-results/
+├── general-domains.txt          # Genel domain arama sonuçları
+├── one-letter-domains.txt       # Tek harfli domain'ler
+├── two-letter-domains.txt       # İki harfli domain'ler
+├── three-letter-domains.txt     # Üç harfli domain'ler
+├── four-letter-domains.txt      # Dört harfli domain'ler
+├── short-domains.txt            # Kısa domain'ler
+└── numbers-domains.txt          # Sayısal domain'ler
+```
+
+Her dosyada şu bilgiler saklanır:
+- Domain adı ve uzantısı
+- Müsaitlik durumu (✅ MÜSAİT / ❌ ALINMIŞ)
+- Tarih ve saat bilgisi
+- Registrar bilgisi (varsa)
+
+## �🔧 Programmatik Kullanım
 
 ```javascript
 const SiteChecker = require('./checker');

@@ -301,10 +301,19 @@ program
   .action(async () => {
     const generator = new DomainGenerator();
     const fs = require('fs');
+    const path = require('path');
     
     try {
-      const files = await fs.promises.readdir('.');
-      const resultFiles = files.filter(file => file.endsWith('-available-domains.txt'));
+      const resultsDir = 'domain-results';
+      
+      if (!fs.existsSync(resultsDir)) {
+        console.log(chalk.yellow('📭 Henüz sonuç dosyası bulunamadı.'));
+        console.log(chalk.gray('Domain hunting başlatmak için: node index.js hunt'));
+        return;
+      }
+
+      const files = await fs.promises.readdir(resultsDir);
+      const resultFiles = files.filter(file => file.endsWith('-domains.txt'));
       
       if (resultFiles.length === 0) {
         console.log(chalk.yellow('📭 Henüz sonuç dosyası bulunamadı.'));
@@ -320,16 +329,17 @@ program
 
       for (const file of resultFiles) {
         try {
-          const content = await fs.promises.readFile(file, 'utf8');
+          const filePath = path.join(resultsDir, file);
+          const content = await fs.promises.readFile(filePath, 'utf8');
           const lines = content.trim().split('\n').filter(line => line);
           
-          const available = lines.filter(line => line.includes('| available |')).length;
+          const available = lines.filter(line => line.includes('| ✅ MÜSAİT |')).length;
           const taken = lines.length - available;
           
           totalAvailable += available;
           totalChecked += lines.length;
 
-          const category = file.replace('-available-domains.txt', '');
+          const category = file.replace('-domains.txt', '');
           const successRate = lines.length > 0 ? ((available / lines.length) * 100).toFixed(2) : '0';
 
           console.log(chalk.cyan(`\n📁 ${category.toUpperCase()}:`));
@@ -338,7 +348,7 @@ program
           console.log(chalk.blue(`   📊 Toplam: ${lines.length} (${successRate}% başarı)`));
 
           // Son 5 müsait domain'i göster
-          const availableLines = lines.filter(line => line.includes('| available |')).slice(-5);
+          const availableLines = lines.filter(line => line.includes('| ✅ MÜSAİT |')).slice(-5);
           if (availableLines.length > 0) {
             console.log(chalk.gray(`   📝 Son müsait domain'ler:`));
             availableLines.forEach(line => {
