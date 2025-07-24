@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const DomainGenerator = require('../domain-generator');
 const SiteChecker = require('../checker');
+const ExtensionConfig = require('../utils/extensionConfig');
 
 // Domain hunting - sürekli rastgele domain arama
 function setupHuntCommand(program) {
@@ -8,16 +9,22 @@ function setupHuntCommand(program) {
     .command('hunt')
     .description('Sürekli rastgele domain üretip müsait olanları arar ve dosyaya kaydeder')
     .option('-c, --categories <cats>', 'Aranacak kategoriler (virgülle ayırın)', 'one-letter,two-letter,three-letter,turkish,english,tech,business')
-    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', '.com,.com.tr,.net')
+    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
     .option('-i, --interval <ms>', 'Kontroller arası bekleme süresi (milisaniye)', '2000')
     .option('-l, --limit <num>', 'Maksimum domain sayısı (0=sınırsız)', '0')
     .option('--stats-interval <sec>', 'İstatistik gösterme aralığı (saniye)', '30')
     .action(async (options) => {
       const generator = new DomainGenerator();
       const checker = new SiteChecker();
+      const config = new ExtensionConfig();
       
       const categories = options.categories.split(',').map(c => c.trim());
-      const extensions = options.extensions.split(',').map(e => e.trim());
+      
+      // Uzantıları belirle: parametre > konfigürasyon
+      const extensions = options.extensions 
+        ? options.extensions.split(',').map(e => e.trim())
+        : config.getActiveExtensions();
+        
       const interval = parseInt(options.interval);
       const limit = parseInt(options.limit);
       const statsInterval = parseInt(options.statsInterval) * 1000;

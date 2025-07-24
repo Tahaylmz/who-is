@@ -7,6 +7,7 @@ const { setupCheckCommand, setupCheckListCommand, setupQuickCommand } = require(
 const { setupCheckDomainCommand, setupCheckDomainsCommand, setupCheckAvailabilityCommand, setupFindAvailableCommand } = require('./commands/domain');
 const { setupHuntCommand, setupHuntStatsCommand, setupHuntClearCommand } = require('./commands/hunt');
 const { setupMonitorCommand } = require('./commands/monitor');
+const { setupConfigShowCommand, setupConfigAddCommand, setupConfigRemoveCommand, setupConfigSetCommand, setupConfigResetCommand } = require('./commands/config');
 
 const program = new Command();
 
@@ -28,6 +29,13 @@ setupMonitorCommand(program);
 setupHuntCommand(program);
 setupHuntStatsCommand(program);
 setupHuntClearCommand(program);
+
+// Konfigürasyon komutları
+setupConfigShowCommand(program);
+setupConfigAddCommand(program);
+setupConfigRemoveCommand(program);
+setupConfigSetCommand(program);
+setupConfigResetCommand(program);
 
 // Program başlat
 if (require.main === module) {

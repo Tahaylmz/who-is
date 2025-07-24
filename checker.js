@@ -234,6 +234,22 @@ class SiteChecker {
   }
 
   /**
+   * Bir domain için farklı uzantıların erişilebilirliğini kontrol eder
+   * @param {string} domain - Ana domain adı (örn: "google")  
+   * @param {Array<string>} extensions - Kontrol edilecek uzantılar
+   * @returns {Promise<Array>} Tüm uzantılar için erişilebilirlik sonuçları
+   */
+  async checkDomainExtensions(domain, extensions = ['.com']) {
+    // Domain'den mevcut uzantıyı temizle
+    const cleanDomain = domain.replace(/\.(com|net|org|tr|com\.tr|io|dev|app|tech)$/i, '');
+    
+    const urls = extensions.map(ext => `https://${cleanDomain}${ext}`);
+    
+    const results = await this.checkMultipleSites(urls);
+    return results;
+  }
+
+  /**
    * Bir domain için farklı uzantıların availability durumunu kontrol eder
    * @param {string} domain - Ana domain adı (örn: "google")
    * @param {Array<string>} extensions - Kontrol edilecek uzantılar

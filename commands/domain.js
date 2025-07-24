@@ -1,19 +1,26 @@
 const chalk = require('chalk');
 const SiteChecker = require('../checker');
+const ExtensionConfig = require('../utils/extensionConfig');
 const { displayDomainResults, displayAvailabilityResults, displayMultipleAvailabilityResults } = require('../utils/display');
 
 // Domain uzantı kontrolü
 function setupCheckDomainCommand(program) {
   program
     .command('check-domain <domain>')
-    .description('Bir domain için farklı uzantıları kontrol eder (.com, .com.tr, .net)')
-    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', '.com,.com.tr,.net')
+    .description('Bir domain için farklı uzantıları kontrol eder')
+    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
     .option('-t, --timeout <ms>', 'Zaman aşımı süresi (milisaniye)', '5000')
     .action(async (domain, options) => {
       const checker = new SiteChecker({ timeout: parseInt(options.timeout) });
-      const extensions = options.extensions.split(',').map(ext => ext.trim());
+      const config = new ExtensionConfig();
+      
+      // Uzantıları belirle: parametre > konfigürasyon
+      const extensions = options.extensions 
+        ? options.extensions.split(',').map(ext => ext.trim())
+        : config.getActiveExtensions();
       
       console.log(chalk.blue(`🔍 ${domain} için ${extensions.length} uzantı kontrol ediliyor...`));
+      console.log(chalk.gray(`📋 Uzantılar: ${extensions.join(', ')}`));
       
       const results = await checker.checkDomainExtensions(domain, extensions);
       displayDomainResults(domain, results);
@@ -25,13 +32,19 @@ function setupCheckDomainsCommand(program) {
   program
     .command('check-domains <domains...>')
     .description('Birden fazla domain için farklı uzantıları kontrol eder')
-    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', '.com,.com.tr,.net')
+    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
     .option('-t, --timeout <ms>', 'Zaman aşımı süresi (milisaniye)', '5000')
     .action(async (domains, options) => {
       const checker = new SiteChecker({ timeout: parseInt(options.timeout) });
-      const extensions = options.extensions.split(',').map(ext => ext.trim());
+      const config = new ExtensionConfig();
+      
+      // Uzantıları belirle: parametre > konfigürasyon
+      const extensions = options.extensions 
+        ? options.extensions.split(',').map(ext => ext.trim())
+        : config.getActiveExtensions();
       
       console.log(chalk.blue(`🚀 ${domains.length} domain için ${extensions.length} uzantı kontrol ediliyor...`));
+      console.log(chalk.gray(`📋 Uzantılar: ${extensions.join(', ')}`));
       
       const results = await checker.checkMultipleDomainsWithExtensions(domains, extensions);
       displayMultipleDomainResults(results);
@@ -43,12 +56,18 @@ function setupCheckAvailabilityCommand(program) {
   program
     .command('check-availability <domain>')
     .description('Bir domain için farklı uzantıların satın alınıp alınmadığını kontrol eder')
-    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', '.com,.com.tr,.net')
+    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
     .action(async (domain, options) => {
       const checker = new SiteChecker();
-      const extensions = options.extensions.split(',').map(ext => ext.trim());
+      const config = new ExtensionConfig();
+      
+      // Uzantıları belirle: parametre > konfigürasyon
+      const extensions = options.extensions 
+        ? options.extensions.split(',').map(ext => ext.trim())
+        : config.getActiveExtensions();
       
       console.log(chalk.blue(`🔍 ${domain} için ${extensions.length} uzantının availability durumu kontrol ediliyor...`));
+      console.log(chalk.gray(`📋 Uzantılar: ${extensions.join(', ')}`));
       
       const results = await checker.checkDomainAvailabilityWithExtensions(domain, extensions);
       displayAvailabilityResults(domain, results);
@@ -60,12 +79,18 @@ function setupFindAvailableCommand(program) {
   program
     .command('find-available <domains...>')
     .description('Birden fazla domain için müsait olanları bulur')
-    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', '.com,.com.tr,.net')
+    .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
     .action(async (domains, options) => {
       const checker = new SiteChecker();
-      const extensions = options.extensions.split(',').map(ext => ext.trim());
+      const config = new ExtensionConfig();
+      
+      // Uzantıları belirle: parametre > konfigürasyon
+      const extensions = options.extensions 
+        ? options.extensions.split(',').map(ext => ext.trim())
+        : config.getActiveExtensions();
       
       console.log(chalk.blue(`🚀 ${domains.length} domain için müsait uzantılar aranıyor...`));
+      console.log(chalk.gray(`📋 Uzantılar: ${extensions.join(', ')}`));
       
       const allResults = {};
       
