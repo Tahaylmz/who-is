@@ -10,17 +10,23 @@ who-is/
 │   ├── check.js          # Site kontrol komutları
 │   ├── domain.js         # Domain işlemleri
 │   ├── hunt.js           # Domain hunting sistemi
-│   └── monitor.js        # İzleme komutları
+│   ├── monitor.js        # İzleme komutları
+│   ├── ai.js             # AI domain generation komutları
+│   ├── trend.js          # Trend analizi komutları
+│   └── domainConfig.js   # Domain konfigürasyon komutları
 ├── 📁 utils/             # Yardımcı modüller
-│   └── display.js        # Sonuç görüntüleme fonksiyonları
+│   ├── display.js        # Sonuç görüntüleme fonksiyonları
+│   └── domainGenerationConfig.js # Domain generation konfigürasyon sistemi
+├── 📁 config/            # Konfigürasyon dosyaları
+│   └── domainGeneration.json # Domain generation kuralları
 ├── 📁 domain-results/    # Sonuç dosyaları
 │   ├── general-domains.txt
 │   ├── tech-domains.txt
 │   └── ...
 ├── 📄 index.js           # Ana CLI programı
 ├── 📄 checker.js         # Site kontrol motoru
-├── 📄 domain-generator.js # Domain üretim sistemi
-└── 📄 test.js           # Test süiti
+├── 📄 domain-generator.js # Akıllı domain üretim sistemi
+└── 📄 aiDomainGenerator.js # AI-destekli domain generator
 ```
 
 ### Modüler Tasarım
@@ -32,11 +38,17 @@ who-is/
 ## 🔧 Programmatik Kullanım.com.tr, .net gibi farklı uzantıları otomatik kontrol
 - 🔍 **Domain Availability**: DNS ve WHOIS sorguları ile domain satın alınıp alınmadığını kontrol
 - 🎰 **Domain Hunting**: Sürekli rastgele anlamlı domain'leri tarayıp müsait olanları bulma
-- 📊 **Gerçek Zamanlı İzleme**: Sürekli izleme modu ile anlık durumu takip
+- 🤖 **AI Domain Generator**: OpenAI API ile akıllı domain önerileri ve yerel yapay zeka algoritmaları
+- 📈 **Trend Analizi**: 2025 teknoloji trendleri ve gelecek tahminleri ile domain önerileri
+- � **Pazar Analizi**: Domain değer tahmini ve yatırım potansiyeli hesaplama
+- ⚙️ **Akıllı Konfigürasyon**: Domain oluşturma kuralları, tire ve sayı kontrolü ayarları
+- �📊 **Gerçek Zamanlı İzleme**: Sürekli izleme modu ile anlık durumu takip
 - 🎨 **Renkli Terminal**: Görsel olarak zengin sonuç gösterimi
 - 🔧 **Esnek Yapılandırma**: Timeout, eş zamanlılık ve interval ayarları
 - 📋 **Çoklu Format**: Tek site, liste dosyası ve hızlı test desteği
-- 💾 **Otomatik Kayıt**: Bulunan müsait domain'leri kategorizeli dosyalara kaydetmeChecker 🚀
+- 💾 **Otomatik Kayıt**: Bulunan müsait domain'leri kategorizeli dosyalara kaydetme
+- 🎯 **Kalite Puanlama**: 0-100 arası domain kalite puanlama sistemi
+- 🧠 **6 Farklı Strateji**: Sektör odaklı, trend kombinasyonu, anlamlı birleşim, fonetik optimizasyon, psikoloji tabanlı ve AI-destekli generationChecker 🚀
 
 Çok hızlı ve etkili web sitesi durum kontrol sistemi. Sitelerinizin çevrimiçi/çevrimdışı durumunu hızlıca kontrol edin.
 
@@ -152,6 +164,76 @@ node index.js hunt-stats
 node index.js hunt-clear --yes
 ```
 
+### AI Domain Generation (Yapay Zeka ile Domain Önerileri)
+
+```bash
+# AI ile domain önerileri al
+node index.js ai-suggest "teknoloji şirketi"
+
+# Belirli sektör için AI önerileri
+node index.js ai-suggest "e-ticaret platformu" --count 10
+
+# Toplu AI domain generation
+node index.js ai-batch "startup, teknoloji, yapay zeka" --count 15
+
+# Premium AI önerileri (kalite odaklı)
+node index.js ai-suggest "fintech startup" --premium
+```
+
+### Trend Analizi
+
+```bash
+# 2025 teknoloji trendleri analizi
+node index.js trend-analysis
+
+# Trend bazlı domain önerileri
+node index.js trend-domains --count 20
+
+# Spesifik trend için domain önerileri
+node index.js trend-domains --trend "ai-automation" --count 10
+```
+
+### Pazar Analizi
+
+```bash
+# Domain değer tahmini
+node index.js market-analysis techstartup.com
+
+# Toplu pazar analizi
+node index.js market-analysis mysite.com yoursite.net theirsite.org
+
+# Detaylı yatırım raporu
+node index.js market-analysis mybrand.com --detailed
+```
+
+### Domain Generation Konfigürasyonu
+
+```bash
+# Mevcut konfigürasyonu görüntüle
+node index.js domain-config-show
+
+# Tire kullanımını kapat
+node index.js domain-config-hyphens false
+
+# Sayı kullanımını açık, pozisyonu sona al
+node index.js domain-config-numbers true end
+
+# Maksimum uzunluğu 10 karakter yap
+node index.js domain-config-length 10
+
+# Konfigürasyonu test et
+node index.js domain-config-test example-domain-123
+
+# Konfigürasyonu varsayılana sıfırla
+node index.js domain-config-reset
+
+# Özel konfigürasyon profili kaydet
+node index.js domain-config-save premium-profile
+
+# Kaydedilmiş profili yükle
+node index.js domain-config-load premium-profile
+```
+
 ### Sürekli İzleme
 
 ```bash
@@ -176,6 +258,14 @@ node index.js monitor sites.txt --interval 30
 ### check-domain ve check-domains için
 - `-e, --extensions <exts>`: Kontrol edilecek uzantılar (varsayılan: .com,.com.tr,.net)
 
+### AI komutları için
+- `-c, --count <num>`: Üretilecek domain sayısı (varsayılan: 5)
+- `--premium`: Premium kalite modunda çalıştır
+- `--detailed`: Detaylı analiz raporu
+
+### Domain konfigürasyonu için
+- `--profile <name>`: Özel konfigürasyon profili kullan
+
 ## 📊 Çıktı Açıklamaları
 
 ### Durum Göstergeleri
@@ -192,6 +282,20 @@ node index.js monitor sites.txt --interval 30
 - **Bağlantı reddedildi**: Server bağlantıyı reddetti
 - **Zaman aşımı**: Belirlenen sürede yanıt alınamadı
 - **SSL sertifikası süresi dolmuş**: HTTPS sertifikası geçersiz
+
+### AI ve Analiz Göstergeleri
+- 🧠 **AI Puanı**: 0-100 arası kalite puanı
+- 📈 **Trend Skoru**: Gelecek potansiyeli
+- 💰 **Değer Tahmini**: Tahmini pazar değeri ($)
+- ⚡ **Hız Puanı**: Telaffuz kolaylığı
+- 🎯 **Marka Uyumu**: Marka değeri potansiyeli
+
+### Domain Kalite Puanlama
+- **90-100**: Mükemmel (🟢)
+- **75-89**: Çok İyi (🟡)
+- **60-74**: İyi (🟠)
+- **40-59**: Orta (🔴)
+- **0-39**: Zayıf (⚫)
 
 ## 📁 Örnek Site Listesi Dosyası
 
@@ -221,6 +325,26 @@ bbc.com
 2. **Timeout**: Yavaş siteler için timeout değerini artırın
 3. **Interval**: İzleme modunda gereksiz yere sık kontrol yapmayın
 4. **Liste Dosyası**: Yorumları (#) kullanarak gruplandırın
+5. **AI Performansı**: Premium mode daha kaliteli ancak daha yavaş sonuçlar verir
+6. **Konfigürasyon**: Domain generation kurallarını ihtiyacınıza göre ayarlayın
+7. **Batch İşlemler**: Büyük listeler için batch komutlarını kullanın
+
+## 🤖 AI Integration (Yapay Zeka Entegrasyonu)
+
+### OpenAI API Kurulumu
+
+1. OpenAI hesabı oluşturun ve API key alın
+2. Environment variable olarak ekleyin:
+```bash
+export OPENAI_API_KEY="your-api-key-here"
+```
+
+### AI Özellikleri
+- **Sektör Analizi**: 5 farklı sektör için özelleştirilmiş domain önerileri
+- **Kalite Puanlama**: Gelişmiş algoritmayla domain kalitesi değerlendirmesi
+- **Trend Entegrasyonu**: 2025 teknoloji trendleri ile uyumlu öneriler
+- **Yerel Fallback**: API olmadan da çalışan yerel AI algoritmaları
+- **Pazar Değeri**: Domain'lerin potansiyel pazar değeri tahmini
 
 ## � Sonuç Dosyaları
 
@@ -234,19 +358,27 @@ domain-results/
 ├── three-letter-domains.txt     # Üç harfli domain'ler
 ├── four-letter-domains.txt      # Dört harfli domain'ler
 ├── short-domains.txt            # Kısa domain'ler
-└── numbers-domains.txt          # Sayısal domain'ler
+├── numbers-domains.txt          # Sayısal domain'ler
+├── ai-suggestions.txt           # AI önerileri
+├── trend-domains.txt            # Trend bazlı domain'ler
+└── high-value-domains.txt       # Yüksek değerli domain'ler
 ```
 
 Her dosyada şu bilgiler saklanır:
 - Domain adı ve uzantısı
 - Müsaitlik durumu (✅ MÜSAİT / ❌ ALINMIŞ)
+- Kalite puanı (0-100)
 - Tarih ve saat bilgisi
 - Registrar bilgisi (varsa)
+- AI/Trend puanı (uygunsa)
+- Tahmini değer (uygunsa)
 
 ## �🔧 Programmatik Kullanım
 
 ```javascript
 const SiteChecker = require('./checker');
+const DomainGenerator = require('./domain-generator');
+const AIDomainGenerator = require('./aiDomainGenerator');
 
 const checker = new SiteChecker({
   timeout: 5000,
@@ -263,6 +395,20 @@ const results = await checker.checkMultipleSites([
   'github.com',
   'stackoverflow.com'
 ], 10); // 10 eş zamanlı istek
+
+// Akıllı domain generation
+const domainGen = new DomainGenerator();
+const smartDomains = domainGen.generateSmartDomain('teknoloji', 'tech');
+console.log('Akıllı domain önerileri:', smartDomains);
+
+// AI domain generation
+const aiGen = new AIDomainGenerator();
+const aiDomains = await aiGen.generateAIDomains('fintech startup', 5);
+console.log('AI domain önerileri:', aiDomains);
+
+// Trend analizi
+const trendDomains = await aiGen.generateTrendBasedDomains(10);
+console.log('Trend bazlı domain'ler:', trendDomains);
 
 // Sürekli izleme
 checker.startMonitoring(['google.com'], 30000, (results) => {
@@ -315,14 +461,24 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICE
 
 ## 📈 İstatistikler
 
-![GitHub stars](https://img.shields.io/github/stars/Tahaylmz/who-is-site-checker?style=social)
-![GitHub forks](https://img.shields.io/github/forks/Tahaylmz/who-is-site-checker?style=social)
-![GitHub issues](https://img.shields.io/github/issues/Tahaylmz/who-is-site-checker)
-![GitHub license](https://img.shields.io/github/license/Tahaylmz/who-is-site-checker)
-![npm version](https://img.shields.io/npm/v/who-is-site-checker)
+![GitHub stars](https://img.shields.io/github/stars/Tahaylmz/who-is?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Tahaylmz/who-is?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Tahaylmz/who-is)
+![GitHub license](https://img.shields.io/github/license/Tahaylmz/who-is)
+![npm version](https://img.shields.io/npm/v/who-is)
 
 ## 🎯 Özellik Roadmap
 
+### Tamamlanan Özellikler ✅
+- [x] AI domain generation (OpenAI API)
+- [x] Akıllı domain algoritmaları (6 strateji)
+- [x] Trend analizi ve 2025 tahminleri
+- [x] Pazar değeri tahmini
+- [x] Domain kalite puanlama sistemi
+- [x] Konfigürasyon yönetimi
+- [x] Tire ve sayı kontrolü
+
+### Gelecek Özellikler 🚀
 - [ ] JSON/CSV çıktı formatları
 - [ ] E-posta bildirimleri
 - [ ] Webhook desteği
@@ -330,3 +486,6 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICE
 - [ ] Docker container
 - [ ] Prometheus metrics
 - [ ] Slack/Discord entegrasyonu
+- [ ] Blockchain domain desteği (.eth, .crypto)
+- [ ] Machine Learning model training
+- [ ] API rate limiting ve quota yönetimi

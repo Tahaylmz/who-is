@@ -10,6 +10,17 @@ const { setupMonitorCommand } = require('./commands/monitor');
 const { setupConfigShowCommand, setupConfigAddCommand, setupConfigRemoveCommand, setupConfigSetCommand, setupConfigResetCommand } = require('./commands/config');
 const { setupAICommand } = require('./commands/ai');
 const { setupTrendCommand } = require('./commands/trend');
+const { 
+  setupDomainConfigShowCommand, 
+  setupDomainConfigHyphensCommand, 
+  setupDomainConfigNumbersCommand, 
+  setupDomainConfigLengthCommand,
+  setupDomainConfigHyphenPositionCommand,
+  setupDomainConfigNumberPositionCommand,
+  setupDomainConfigMaxNumbersCommand,
+  setupDomainConfigResetCommand,
+  setupDomainConfigTestCommand 
+} = require('./commands/domainConfig');
 
 const program = new Command();
 
@@ -44,6 +55,17 @@ setupAICommand(program);
 
 // Trend analizi komutları
 setupTrendCommand(program);
+
+// Domain üretim konfigürasyonu komutları
+setupDomainConfigShowCommand(program);
+setupDomainConfigHyphensCommand(program);
+setupDomainConfigNumbersCommand(program);
+setupDomainConfigLengthCommand(program);
+setupDomainConfigHyphenPositionCommand(program);
+setupDomainConfigNumberPositionCommand(program);
+setupDomainConfigMaxNumbersCommand(program);
+setupDomainConfigResetCommand(program);
+setupDomainConfigTestCommand(program);
 
 // Program başlat
 if (require.main === module) {

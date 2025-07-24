@@ -1,9 +1,12 @@
 const randomWords = require('random-words');
 const fs = require('fs');
 const path = require('path');
+const DomainGenerationConfig = require('./utils/domainGenerationConfig');
 
 class DomainGenerator {
   constructor() {
+    // Domain üretim konfigürasyonu
+    this.domainConfig = new DomainGenerationConfig();
     // Sektör bazlı kelime kategorileri
     this.sectors = {
       tech: {
@@ -368,21 +371,63 @@ class DomainGenerator {
   }
 
   /**
-   * Domain'i temizler ve optimize eder
+   * Domain'i temizler ve optimize eder (konfigürasyon destekli)
    */
   cleanDomain(domain) {
-    return domain
-      .toLowerCase()
-      .replace(/ğ/g, 'g')
-      .replace(/ü/g, 'u')
-      .replace(/ş/g, 's')
-      .replace(/ı/g, 'i')
-      .replace(/ö/g, 'o')
-      .replace(/ç/g, 'c')
-      .replace(/[^a-z0-9-]/g, '')
-      .replace(/--+/g, '-')
-      .replace(/^-|-$/g, '')
-      .substring(0, 20);
+    return this.domainConfig.cleanDomain(domain);
+  }
+
+  /**
+   * Domain kalitesini değerlendirir (konfigürasyon destekli)
+   */
+  evaluateDomainQuality(domain) {
+    return this.domainConfig.calculateQualityScore(domain);
+  }
+
+  /**
+   * Konfigürasyona uygun sayı üretir
+   */
+  generateConfiguredNumber() {
+    const config = this.domainConfig.getConfig();
+    
+    if (!config.allowNumbers) {
+      return '';
+    }
+    
+    return this.domainConfig.generateAllowedNumber().toString();
+  }
+
+  /**
+   * Konfigürasyona uygun tire ekler
+   */
+  addConfiguredHyphen(domain, position = 'auto') {
+    const config = this.domainConfig.getConfig();
+    
+    if (!config.allowHyphens) {
+      return domain;
+    }
+    
+    const preferredPosition = config.preferredPatterns.hyphenPosition;
+    const actualPosition = position === 'auto' ? preferredPosition : position;
+    
+    if (domain.length < 3) return domain; // Çok kısa domain'lere tire ekleme
+    
+    switch (actualPosition) {
+      case 'start':
+        return config.restrictions.noStartWithHyphen ? domain : '-' + domain;
+      case 'end':
+        return config.restrictions.noEndWithHyphen ? domain : domain + '-';
+      case 'middle':
+        const midPoint = Math.floor(domain.length / 2);
+        return domain.substring(0, midPoint) + '-' + domain.substring(midPoint);
+      case 'any':
+        // Rastgele pozisyon seç
+        const positions = ['start', 'middle', 'end'];
+        const randomPos = positions[Math.floor(Math.random() * positions.length)];
+        return this.addConfiguredHyphen(domain, randomPos);
+      default:
+        return domain;
+    }
   }
 
   /**
@@ -411,9 +456,10 @@ class DomainGenerator {
   }
 
   /**
-   * Rastgele anlamlı domain üretir
+   * Rastgele anlamlı domain üretir (konfigürasyon destekli)
    */
   generateDomain(language = 'mixed') {
+    const config = this.domainConfig.getConfig();
     const pattern = this.patterns[Math.floor(Math.random() * this.patterns.length)];
     let domain = '';
 
@@ -430,7 +476,6 @@ class DomainGenerator {
         } else if (language === 'english') {
           domain = this.getRandomEnglishWord() + this.getRandomEnglishWord();
         } else {
-          // Karışık: bazen türkçe-türkçe, bazen ingilizce-ingilizce, bazen karışık
           const rand = Math.random();
           if (rand < 0.4) {
             domain = this.getRandomTurkishWord() + this.getRandomTurkishWord();
@@ -443,15 +488,34 @@ class DomainGenerator {
         break;
 
       case 'hyphenated':
-        const word1 = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        const word2 = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        domain = word1 + '-' + word2;
+        if (config.allowHyphens) {
+          const word1 = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
+          const word2 = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
+          domain = word1 + '-' + word2;
+        } else {
+          // Tire yasak ise compound kullan
+          domain = this.generateDomain(language);
+        }
         break;
 
       case 'numbered':
-        const baseWord = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
-        const number = this.numbers[Math.floor(Math.random() * this.numbers.length)];
-        domain = Math.random() < 0.5 ? baseWord + number : number + baseWord;
+        if (config.allowNumbers) {
+          const baseWord = language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord();
+          const number = this.generateConfiguredNumber();
+          
+          const numberPosition = config.preferredPatterns.numberPosition;
+          if (numberPosition === 'start' && !config.restrictions.noStartWithNumber) {
+            domain = number + baseWord;
+          } else if (numberPosition === 'middle') {
+            const midPoint = Math.floor(baseWord.length / 2);
+            domain = baseWord.substring(0, midPoint) + number + baseWord.substring(midPoint);
+          } else {
+            domain = baseWord + number;
+          }
+        } else {
+          // Sayı yasak ise compound kullan
+          domain = this.generateDomain(language);
+        }
         break;
 
       case 'prefixed':
@@ -473,7 +537,6 @@ class DomainGenerator {
         break;
 
       case 'branded':
-        // Marka tipi isimler (kısaltma + kelime)
         const brandPart = (language === 'turkish' ? this.getRandomTurkishWord() : this.getRandomEnglishWord())
           .substring(0, 3);
         const businessPart = this.getRandomEnglishWord();
@@ -481,22 +544,14 @@ class DomainGenerator {
         break;
     }
 
-    // Türkçe karakterleri temizle
-    domain = domain
-      .toLowerCase()
-      .replace(/ğ/g, 'g')
-      .replace(/ü/g, 'u')
-      .replace(/ş/g, 's')
-      .replace(/ı/g, 'i')
-      .replace(/ö/g, 'o')
-      .replace(/ç/g, 'c')
-      .replace(/[^a-z0-9-]/g, '');
+    // Konfigürasyona göre temizle
+    domain = this.cleanDomain(domain);
 
-    // Domain uzunluğunu kontrol et (3-20 karakter arası)
-    if (domain.length < 3) {
-      domain += this.getRandomEnglishWord().substring(0, 3);
-    } else if (domain.length > 20) {
-      domain = domain.substring(0, 20);
+    // Uzunluk kontrolü
+    if (domain.length < config.minLength) {
+      domain += this.getRandomEnglishWord().substring(0, config.minLength - domain.length);
+    } else if (domain.length > config.maxLength) {
+      domain = domain.substring(0, config.maxLength);
     }
 
     return domain;
