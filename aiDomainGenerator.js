@@ -231,8 +231,10 @@ class AIDomainGenerator extends DomainGenerator {
      * SEO dostu kontrol
      */
     isSEOFriendly(domain) {
+        // Domain'den uzantıyı çıkararak ana domain uzunluğunu hesapla
+        const mainDomain = domain.includes('.') ? domain.split('.')[0] : domain;
         // Tire yok, sayı az, uzunluk uygun
-        return !domain.includes('-') && (domain.match(/\d/g) || []).length <= 2 && domain.length >= 4 && domain.length <= 12;
+        return !mainDomain.includes('-') && (mainDomain.match(/\d/g) || []).length <= 2 && mainDomain.length >= 4 && mainDomain.length <= 12;
     }
 
     /**
@@ -260,10 +262,14 @@ class AIDomainGenerator extends DomainGenerator {
     estimateDomainValue(domain) {
         let value = 1; // Base value in USD
 
+        // Domain'den uzantıyı çıkararak ana domain uzunluğunu hesapla
+        const mainDomain = domain.includes('.') ? domain.split('.')[0] : domain;
+        const domainLength = mainDomain.length;
+
         // Length premium
-        if (domain.length <= 4) value *= 1000;
-        else if (domain.length <= 6) value *= 100;
-        else if (domain.length <= 8) value *= 10;
+        if (domainLength <= 4) value *= 1000;
+        else if (domainLength <= 6) value *= 100;
+        else if (domainLength <= 8) value *= 10;
 
         // Quality multiplier
         const quality = this.evaluateAdvancedDomainQuality(domain);

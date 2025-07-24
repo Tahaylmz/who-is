@@ -1,4 +1,4 @@
-# Wh## ✨ Özellikler
+# Who is ✨ Özellikler
 
 - ⚡ **Çok Hızlı**: Paralel isteklerle yüzlerce siteyi saniyeler içinde kontrol
 - 🎯 **Akıllı Analiz**: HTTP status kodları, yanıt süreleri ve server bilgileri

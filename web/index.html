@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who-Is - Domain & Site Checker Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <h1>Who-Is Dashboard</h1>
+            </div>
+            <div class="header-actions">
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalChecks">0</span>
+                        <span class="stat-label">Total Checks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="onlineSites">0</span>
+                        <span class="stat-label">Online Sites</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="availableDomains">0</span>
+                        <span class="stat-label">Available Domains</span>
+                    </div>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="site-check">
+                <i class="fas fa-check-circle"></i> Site Check
+            </button>
+            <button class="tab-btn" data-tab="domain-hunt">
+                <i class="fas fa-search"></i> Domain Hunt
+            </button>
+            <button class="tab-btn" data-tab="ai-generator">
+                <i class="fas fa-robot"></i> AI Generator
+            </button>
+            <button class="tab-btn" data-tab="trend-analysis">
+                <i class="fas fa-chart-line"></i> Trend Analysis
+            </button>
+            <button class="tab-btn" data-tab="market-analysis">
+                <i class="fas fa-dollar-sign"></i> Market Analysis
+            </button>
+            <button class="tab-btn" data-tab="config">
+                <i class="fas fa-cog"></i> Configuration
+            </button>
+        </nav>
+
+        <!-- Tab Contents -->
+        <main class="main-content">
+            <!-- Site Check Tab -->
+            <div class="tab-content active" id="site-check">
+                <div class="card">
+                    <h2><i class="fas fa-check-circle"></i> Site Status Checker</h2>
+                    
+                    <div class="site-check-container">
+                        <!-- Single Site Check -->
+                        <div class="single-site-check">
+                            <h3>🔍 Single Site Check</h3>
+                            <div class="site-input-wrapper">
+                                <div class="input-group">
+                                    <label for="siteInput">Website URL</label>
+                                    <input type="text" id="siteInput" placeholder="Enter site URL (e.g., google.com)">
+                                </div>
+                                <button onclick="checkSite()" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Check Site
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Bulk Site Check -->
+                        <div class="bulk-check">
+                            <h3>Bulk Site Check</h3>
+                            <div class="input-group">
+                                <label for="bulkSites">Multiple Sites (one per line)</label>
+                                <textarea id="bulkSites" placeholder="Enter multiple sites (one per line):
+google.com
+github.com
+stackoverflow.com"></textarea>
+                            </div>
+                            <button onclick="checkBulkSites()" class="btn btn-secondary">
+                                <i class="fas fa-list"></i> Check All Sites
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    <div id="siteResults" class="results"></div>
+                </div>
+            </div>
+
+            <!-- Domain Hunt Tab -->
+            <div class="tab-content" id="domain-hunt">
+                <div class="card">
+                    <h2><i class="fas fa-search"></i> Domain Hunting</h2>
+                    <div class="hunt-controls">
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Categories:</label>
+                                <select id="huntCategories" multiple>
+                                    <option value="one-letter">One Letter</option>
+                                    <option value="two-letter">Two Letter</option>
+                                    <option value="three-letter">Three Letter</option>
+                                    <option value="short">Short Domains</option>
+                                    <option value="numbers">Numbers</option>
+                                    <option value="tech">Tech</option>
+                                    <option value="turkish">Turkish</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Extensions:</label>
+                                <input type="text" id="huntExtensions" value=".com,.net,.org" placeholder=".com,.net,.org">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Limit:</label>
+                                <input type="number" id="huntLimit" value="100" min="1" max="10000">
+                            </div>
+                            <div class="input-group">
+                                <label>Interval (ms):</label>
+                                <input type="number" id="huntInterval" value="1000" min="100" max="5000">
+                            </div>
+                        </div>
+                        <div class="hunt-buttons">
+                            <button onclick="startHunt()" class="btn btn-success" id="startHuntBtn">
+                                <i class="fas fa-play"></i> Start Hunt
+                            </button>
+                            <button onclick="stopHunt()" class="btn btn-danger" id="stopHuntBtn" disabled>
+                                <i class="fas fa-stop"></i> Stop Hunt
+                            </button>
+                            <button onclick="clearResults()" class="btn btn-warning">
+                                <i class="fas fa-trash"></i> Clear Results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hunt-stats">
+                    <div class="stat-card">
+                        <h3>Hunt Statistics</h3>
+                        <div class="stat-grid">
+                            <div class="stat">
+                                <span class="stat-label">Checked:</span>
+                                <span class="stat-value" id="huntChecked">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Available:</span>
+                                <span class="stat-value" id="huntAvailable">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Success Rate:</span>
+                                <span class="stat-value" id="huntSuccessRate">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    <div id="huntResults" class="results"></div>
+                </div>
+            </div>
+
+            <!-- AI Generator Tab -->
+            <div class="tab-content" id="ai-generator">
+                <div class="card">
+                    <h2><i class="fas fa-robot"></i> AI Domain Generator</h2>
+                    <div class="ai-controls">
+                        <div class="input-group">
+                            <label>Description:</label>
+                            <input type="text" id="aiDescription" placeholder="e.g., tech startup, e-commerce platform, fintech app">
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Count:</label>
+                                <input type="number" id="aiCount" value="10" min="1" max="50">
+                            </div>
+                            <div class="input-group">
+                                <label>Sector:</label>
+                                <select id="aiSector">
+                                    <option value="tech">Technology</option>
+                                    <option value="business">Business</option>
+                                    <option value="creative">Creative</option>
+                                    <option value="health">Health</option>
+                                    <option value="ecommerce">E-commerce</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Strategy:</label>
+                                <select id="aiStrategy">
+                                    <option value="sectorSpecific">Sector Specific</option>
+                                    <option value="trendCombination">Trend Combination</option>
+                                    <option value="meaningfulCombo">Meaningful Combo</option>
+                                    <option value="phoneticOptimized">Phonetic Optimized</option>
+                                    <option value="psychologyBased">Psychology Based</option>
+                                    <option value="aiInspired">AI Inspired</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="ai-options">
+                            <label class="checkbox">
+                                <input type="checkbox" id="aiPremium"> Premium Quality Mode
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="aiCheckAvailability" checked> Check Availability
+                            </label>
+                        </div>
+                        <button onclick="generateAIDomains()" class="btn btn-primary">
+                            <i class="fas fa-magic"></i> Generate AI Domains
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    <div id="aiResults" class="results"></div>
+                </div>
+            </div>
+
+            <!-- Trend Analysis Tab -->
+            <div class="tab-content" id="trend-analysis">
+                <div class="card">
+                    <h2><i class="fas fa-chart-line"></i> Trend Analysis</h2>
+                    <div class="trend-controls">
+                        <button onclick="getTrendAnalysis()" class="btn btn-primary">
+                            <i class="fas fa-chart-bar"></i> Get 2025 Trend Analysis
+                        </button>
+                        <div class="trend-generation">
+                            <h3>Generate Trend-Based Domains</h3>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label>Count:</label>
+                                    <input type="number" id="trendCount" value="15" min="1" max="50">
+                                </div>
+                                <div class="input-group">
+                                    <label>Specific Trend:</label>
+                                    <select id="specificTrend">
+                                        <option value="">All Trends</option>
+                                        <option value="ai-automation">AI & Automation</option>
+                                        <option value="sustainable-tech">Sustainable Tech</option>
+                                        <option value="web3-blockchain">Web3 & Blockchain</option>
+                                        <option value="edge-computing">Edge Computing</option>
+                                        <option value="quantum-tech">Quantum Technology</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button onclick="generateTrendDomains()" class="btn btn-secondary">
+                                <i class="fas fa-trending-up"></i> Generate Trend Domains
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    <div id="trendResults" class="results"></div>
+                </div>
+            </div>
+
+            <!-- Market Analysis Tab -->
+            <div class="tab-content" id="market-analysis">
+                <div class="card">
+                    <h2><i class="fas fa-dollar-sign"></i> Market Analysis</h2>
+                    <div class="market-controls">
+                        <div class="input-group">
+                            <label>Domain(s) to Analyze:</label>
+                            <input type="text" id="marketDomains" placeholder="example.com, mysite.net, brand.org">
+                        </div>
+                        <div class="market-options">
+                            <label class="checkbox">
+                                <input type="checkbox" id="detailedAnalysis"> Detailed Investment Report
+                            </label>
+                        </div>
+                        <button onclick="analyzeMarket()" class="btn btn-primary">
+                            <i class="fas fa-chart-pie"></i> Analyze Market Value
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    <div id="marketResults" class="results"></div>
+                </div>
+            </div>
+
+            <!-- Configuration Tab -->
+            <div class="tab-content" id="config">
+                <div class="card">
+                    <h2><i class="fas fa-cog"></i> Domain Generation Configuration</h2>
+                    <div class="config-section">
+                        <h3>Current Configuration</h3>
+                        <button onclick="showCurrentConfig()" class="btn btn-info">
+                            <i class="fas fa-eye"></i> Show Current Config
+                        </button>
+                        <div id="currentConfig" class="config-display"></div>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>Hyphen Settings</h3>
+                        <div class="config-controls">
+                            <label class="radio-group">
+                                <input type="radio" name="hyphens" value="true"> Allow Hyphens
+                                <input type="radio" name="hyphens" value="false"> No Hyphens
+                            </label>
+                            <button onclick="updateHyphens()" class="btn btn-small">Update</button>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>Number Settings</h3>
+                        <div class="config-controls">
+                            <label class="radio-group">
+                                <input type="radio" name="numbers" value="true"> Allow Numbers
+                                <input type="radio" name="numbers" value="false"> No Numbers
+                            </label>
+                            <select id="numberPosition">
+                                <option value="start">At Start</option>
+                                <option value="end">At End</option>
+                                <option value="middle">In Middle</option>
+                                <option value="anywhere">Anywhere</option>
+                            </select>
+                            <button onclick="updateNumbers()" class="btn btn-small">Update</button>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>Length Settings</h3>
+                        <div class="config-controls">
+                            <input type="number" id="maxLength" placeholder="Max length" min="3" max="50">
+                            <button onclick="updateLength()" class="btn btn-small">Update Length</button>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>Test & Reset</h3>
+                        <div class="config-controls">
+                            <input type="text" id="testDomain" placeholder="test-domain-123">
+                            <button onclick="testConfig()" class="btn btn-info">Test Domain</button>
+                            <button onclick="resetConfig()" class="btn btn-warning">Reset to Default</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    <div id="configResults" class="results"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
