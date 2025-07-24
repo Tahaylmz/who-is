@@ -1,4 +1,15 @@
-# Who-Is Site Checker 🚀
+# Wh## ✨ Özellikler
+
+- ⚡ **Çok Hızlı**: Paralel isteklerle yüzlerce siteyi saniyeler içinde kontrol
+- 🎯 **Akıllı Analiz**: HTTP status kodları, yanıt süreleri ve server bilgileri
+- 🌐 **Domain Uzantı Kontrolü**: .com, .com.tr, .net gibi farklı uzantıları otomatik kontrol
+- 🔍 **Domain Availability**: DNS ve WHOIS sorguları ile domain satın alınıp alınmadığını kontrol
+- 🎰 **Domain Hunting**: Sürekli rastgele anlamlı domain'leri tarayıp müsait olanları bulma
+- 📊 **Gerçek Zamanlı İzleme**: Sürekli izleme modu ile anlık durumu takip
+- 🎨 **Renkli Terminal**: Görsel olarak zengin sonuç gösterimi
+- 🔧 **Esnek Yapılandırma**: Timeout, eş zamanlılık ve interval ayarları
+- 📋 **Çoklu Format**: Tek site, liste dosyası ve hızlı test desteği
+- 💾 **Otomatik Kayıt**: Bulunan müsait domain'leri kategorizeli dosyalara kaydetmeChecker 🚀
 
 Çok hızlı ve etkili web sitesi durum kontrol sistemi. Sitelerinizin çevrimiçi/çevrimdışı durumunu hızlıca kontrol edin.
 
@@ -87,6 +98,31 @@ node index.js check-availability mybrand --extensions .com,.com.tr,.net,.org
 
 # Birden fazla domain için müsait olanları bul
 node index.js find-available mysite mybrand mycompany
+```
+
+### Domain Hunting (Sürekli Arama)
+
+```bash
+# Otomatik domain hunting başlat (sınırsız)
+node index.js hunt
+
+# Belirli kategorilerde ara
+node index.js hunt --categories one-letter,two-letter,turkish,tech
+
+# Özel uzantılarla ara
+node index.js hunt --extensions .com,.net,.org
+
+# Limit ile ara (1000 domain kontrol et)
+node index.js hunt --limit 1000
+
+# Hızlı arama (500ms interval)
+node index.js hunt --interval 500
+
+# İstatistikleri göster
+node index.js hunt-stats
+
+# Sonuç dosyalarını temizle
+node index.js hunt-clear --yes
 ```
 
 ### Sürekli İzleme
@@ -209,9 +245,33 @@ checker.startMonitoring(['google.com'], 30000, (results) => {
 4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
 5. Pull Request oluşturun
 
+Detaylı bilgi için [CONTRIBUTING.md](CONTRIBUTING.md) dosyasına bakın.
+
+## 🔐 Güvenlik
+
+Güvenlik açığı bulduysanız lütfen [SECURITY.md](SECURITY.md) dosyasındaki yönergeleri takip edin.
+
 ## 📄 Lisans
 
-Bu proje MIT lisansı altında lisanslanmıştır.
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+
+**Copyright (c) 2025 Taha Yılmaz**
+
+## 🙏 Teşekkürler
+
+- [axios](https://github.com/axios/axios) - HTTP client
+- [chalk](https://github.com/chalk/chalk) - Terminal renklendirme
+- [commander.js](https://github.com/tj/commander.js) - CLI framework
+- [whois](https://github.com/FurqanSoftware/node-whois) - WHOIS client
+- [random-words](https://github.com/apostrophecms/random-words) - Rastgele kelime üretimi
+
+## 📈 İstatistikler
+
+![GitHub stars](https://img.shields.io/github/stars/Tahaylmz/who-is-site-checker?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Tahaylmz/who-is-site-checker?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Tahaylmz/who-is-site-checker)
+![GitHub license](https://img.shields.io/github/license/Tahaylmz/who-is-site-checker)
+![npm version](https://img.shields.io/npm/v/who-is-site-checker)
 
 ## 🎯 Özellik Roadmap
 
