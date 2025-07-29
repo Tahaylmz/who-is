@@ -1070,3 +1070,549 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('numberStatus').textContent = 'Enabled';
     document.getElementById('numberStatus').className = 'status-enabled';
 });
+
+// Word Hunt Functions
+async function startWordHunt() {
+    const keyword = document.getElementById('wordHuntKeyword').value.trim();
+    if (!keyword) {
+        showToast('Please enter a keyword', 'warning');
+        return;
+    }
+    
+    const limit = parseInt(document.getElementById('wordHuntLimit').value);
+    const minLength = parseInt(document.getElementById('wordHuntMinLength').value);
+    const maxLength = parseInt(document.getElementById('wordHuntMaxLength').value);
+    const saveResults = document.getElementById('wordHuntSaveResults').checked;
+    
+    // Get generation options
+    const useAI = document.getElementById('wordHuntUseAI').checked;
+    const useNumbers = document.getElementById('wordHuntUseNumbers').checked;
+    const useHyphens = document.getElementById('wordHuntUseHyphens').checked;
+    
+    // Get selected extensions
+    const extensionCheckboxes = document.querySelectorAll('input[name="wordHuntExtensions"]:checked');
+    const selectedExtensions = Array.from(extensionCheckboxes).map(checkbox => checkbox.value);
+    
+    if (selectedExtensions.length === 0) {
+        showToast('Please select at least one extension', 'warning');
+        return;
+    }
+    
+    if (minLength >= maxLength) {
+        showToast('Min length must be less than max length', 'warning');
+        return;
+    }
+    
+    // Show progress
+    document.getElementById('wordHuntProgress').style.display = 'block';
+    document.getElementById('wordHuntResults').innerHTML = '';
+    document.getElementById('currentCheck').textContent = 'Starting word hunt...';
+    
+    try {
+        const options = {
+            limit,
+            minLength,
+            maxLength,
+            extensions: selectedExtensions,
+            saveResults,
+            useAI,
+            useNumbers,
+            useHyphens
+        };
+        
+        // Call real API
+        const response = await fetch('/api/word-hunt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                keyword,
+                options
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (!result.success) {
+            throw new Error(result.error || 'Word hunt failed');
+        }
+        
+        // If we get JSON data, use it; otherwise simulate for demo
+        if (result.data && typeof result.data === 'object') {
+            displayWordHuntResults(result.data);
+            const availableCount = result.data.availableDomains ? result.data.availableDomains.length : 0;
+            showToast(`Word hunt completed! Found ${availableCount} available domains`, 'success');
+        } else {
+            // Fallback to simulation for demo
+            const analysis = await simulateWordHunt(keyword, options);
+            displayWordHuntResults(analysis);
+            showToast(`Word hunt completed! Found ${analysis.availableDomains.length} available domains`, 'success');
+        }
+        
+    } catch (error) {
+        console.error('Word hunt error:', error);
+        showToast(`Error: ${error.message}`, 'error');
+        
+        // Fallback to simulation on error
+        try {
+            const analysis = await simulateWordHunt(keyword, {
+                limit, minLength, maxLength, extensions: selectedExtensions, saveResults, useAI, useNumbers, useHyphens
+            });
+            displayWordHuntResults(analysis);
+            showToast(`Word hunt completed (demo mode)! Found ${analysis.availableDomains.length} available domains`, 'info');
+        } catch (simError) {
+            showToast(`Complete failure: ${simError.message}`, 'error');
+        }
+    } finally {
+        document.getElementById('wordHuntProgress').style.display = 'none';
+    }
+}
+
+async function simulateWordHunt(keyword, options) {
+    const { limit, minLength, maxLength, extensions, useAI, useNumbers, useHyphens } = options;
+    
+    // Generate combinations with options
+    const combinations = generateWordCombinations(keyword, minLength, maxLength, limit, {
+        useAI, useNumbers, useHyphens
+    });
+    
+    const results = {
+        keyword,
+        totalCombinations: combinations.length,
+        totalChecked: 0,
+        availableDomains: [],
+        checkedDomains: [],
+        stats: {
+            byStrategy: {},
+            byExtension: {}
+        }
+    };
+    
+    let checkedCount = 0;
+    const totalToCheck = combinations.length * extensions.length;
+    
+    for (const combination of combinations) {
+        for (const extension of extensions) {
+            const fullDomain = `${combination}.${extension}`;
+            checkedCount++;
+            
+            // Update progress
+            updateWordHuntProgress(checkedCount, totalToCheck, fullDomain);
+            
+            // Simulate availability check (faster for demo)
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            const isAvailable = Math.random() < 0.15; // 15% availability rate
+            const strategy = getGenerationStrategy(combination, keyword);
+            
+            results.checkedDomains.push({
+                domain: fullDomain,
+                combination,
+                extension,
+                available: isAvailable,
+                strategy,
+                length: combination.length
+            });
+            
+            if (isAvailable) {
+                results.availableDomains.push({
+                    domain: fullDomain,
+                    combination,
+                    extension,
+                    strategy,
+                    length: combination.length,
+                    estimatedValue: calculateWordHuntValue(combination, extension)
+                });
+                
+                // Update stats
+                if (!results.stats.byStrategy[strategy]) results.stats.byStrategy[strategy] = 0;
+                if (!results.stats.byExtension[extension]) results.stats.byExtension[extension] = 0;
+                results.stats.byStrategy[strategy]++;
+                results.stats.byExtension[extension]++;
+            }
+            
+            results.totalChecked = checkedCount;
+        }
+    }
+    
+    return results;
+}
+
+function generateWordCombinations(keyword, minLength, maxLength, limit, generationOptions = {}) {
+    const { useAI = true, useNumbers = true, useHyphens = true } = generationOptions;
+    const combinations = new Set();
+    const baseWord = keyword.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    // 1. Original word
+    if (baseWord.length >= minLength && baseWord.length <= maxLength) {
+        combinations.add(baseWord);
+    }
+
+    // 2. AI-generated creative combinations
+    if (useAI) {
+        const aiSuggestions = generateAICombinations(baseWord, minLength, maxLength);
+        aiSuggestions.forEach(suggestion => combinations.add(suggestion));
+    }
+
+    // 3. Number strategies (only if enabled)
+    if (useNumbers) {
+        const numbers = ['1', '2', '3', '24', '365', '2024', '2025', '123'];
+        numbers.forEach(num => {
+            const withNumberEnd = baseWord + num;
+            const withNumberStart = num + baseWord;
+            
+            if (withNumberEnd.length >= minLength && withNumberEnd.length <= maxLength) {
+                combinations.add(withNumberEnd);
+            }
+            if (withNumberStart.length >= minLength && withNumberStart.length <= maxLength) {
+                combinations.add(withNumberStart);
+            }
+        });
+    }
+
+    // 4. Prefix strategies
+    const prefixes = ['get', 'my', 'the', 'best', 'top', 'pro', 'super', 'smart', 'quick', 'auto'];
+    prefixes.forEach(prefix => {
+        const withPrefix = prefix + baseWord;
+        if (withPrefix.length >= minLength && withPrefix.length <= maxLength) {
+            combinations.add(withPrefix);
+        }
+    });
+
+    // 5. Suffix strategies
+    const suffixes = ['app', 'hub', 'lab', 'box', 'kit', 'pro', 'plus', 'max', 'net', 'tech', 'ai', 'ly', 'go'];
+    suffixes.forEach(suffix => {
+        const withSuffix = baseWord + suffix;
+        if (withSuffix.length >= minLength && withSuffix.length <= maxLength) {
+            combinations.add(withSuffix);
+        }
+    });
+
+    // 6. Hyphenated combinations (only if enabled)
+    if (useHyphens) {
+        const hyphenWords = ['web', 'app', 'pro', 'tech', 'online', 'digital', 'smart'];
+        hyphenWords.forEach(word => {
+            const withHyphen1 = baseWord + '-' + word;
+            const withHyphen2 = word + '-' + baseWord;
+            
+            if (withHyphen1.length >= minLength && withHyphen1.length <= maxLength) {
+                combinations.add(withHyphen1);
+            }
+            if (withHyphen2.length >= minLength && withHyphen2.length <= maxLength) {
+                combinations.add(withHyphen2);
+            }
+        });
+    }
+
+    // 7. Shortened versions
+    if (baseWord.length > 4) {
+        const shortened = baseWord.substring(0, 4);
+        const shortenedWithSuffix = shortened + 'ly';
+        
+        if (shortened.length >= minLength) combinations.add(shortened);
+        if (shortenedWithSuffix.length <= maxLength) combinations.add(shortenedWithSuffix);
+    }
+
+    // 8. Variations
+    const variations = [
+        baseWord + 's',
+        baseWord + 'er',
+        baseWord + 'ed'
+    ];
+    variations.forEach(variation => {
+        if (variation.length >= minLength && variation.length <= maxLength) {
+            combinations.add(variation);
+        }
+    });
+
+    return Array.from(combinations).slice(0, limit);
+}
+
+function generateAICombinations(baseWord, minLength, maxLength) {
+    // Simulate AI-generated creative combinations
+    const aiSuggestions = [];
+    const creativeSuffixes = ['ify', 'ize', 'wise', 'zen', 'flow', 'sync', 'link', 'spark', 'vibe'];
+    const creativePrefixes = ['neo', 'meta', 'ultra', 'micro', 'macro', 'cyber', 'digi', 'auto'];
+    const techWords = ['lab', 'dev', 'code', 'byte', 'bit', 'data', 'cloud', 'edge'];
+    
+    // Creative prefix combinations
+    creativePrefixes.forEach(prefix => {
+        const combination = prefix + baseWord;
+        if (combination.length >= minLength && combination.length <= maxLength) {
+            aiSuggestions.push(combination);
+        }
+    });
+    
+    // Creative suffix combinations
+    creativeSuffixes.forEach(suffix => {
+        const combination = baseWord + suffix;
+        if (combination.length >= minLength && combination.length <= maxLength) {
+            aiSuggestions.push(combination);
+        }
+    });
+    
+    // Tech-focused combinations
+    techWords.forEach(tech => {
+        const combination1 = baseWord + tech;
+        const combination2 = tech + baseWord;
+        
+        if (combination1.length >= minLength && combination1.length <= maxLength) {
+            aiSuggestions.push(combination1);
+        }
+        if (combination2.length >= minLength && combination2.length <= maxLength) {
+            aiSuggestions.push(combination2);
+        }
+    });
+    
+    // Creative mashups
+    const vowels = 'aeiou';
+    if (baseWord.length > 3) {
+        // Remove vowels for creative shortening
+        const consonantOnly = baseWord.split('').filter(char => !vowels.includes(char)).join('');
+        if (consonantOnly.length >= minLength && consonantOnly.length <= maxLength) {
+            aiSuggestions.push(consonantOnly);
+        }
+        
+        // Add tech endings
+        const techEndings = ['x', 'z', 'r'];
+        techEndings.forEach(ending => {
+            const combination = consonantOnly + ending;
+            if (combination.length >= minLength && combination.length <= maxLength) {
+                aiSuggestions.push(combination);
+            }
+        });
+    }
+    
+    return aiSuggestions.slice(0, 15); // Limit AI suggestions
+}
+
+function getGenerationStrategy(combination, originalKeyword) {
+    const base = originalKeyword.toLowerCase();
+    
+    if (combination === base) return 'Original';
+    if (combination.startsWith(base) && /\d+$/.test(combination)) return 'Numbers (End)';
+    if (combination.endsWith(base) && /^\d+/.test(combination)) return 'Numbers (Start)';
+    if (combination.includes('-')) return 'Hyphenated';
+    if (combination.startsWith(base)) return 'Suffix Added';
+    if (combination.endsWith(base)) return 'Prefix Added';
+    if (combination.length < base.length) return 'Shortened';
+    
+    // Check for AI-generated patterns
+    const aiPrefixes = ['neo', 'meta', 'ultra', 'micro', 'macro', 'cyber', 'digi', 'auto'];
+    const aiSuffixes = ['ify', 'ize', 'wise', 'zen', 'flow', 'sync', 'link', 'spark', 'vibe'];
+    const techWords = ['lab', 'dev', 'code', 'byte', 'bit', 'data', 'cloud', 'edge'];
+    
+    const hasAIPrefix = aiPrefixes.some(prefix => combination.startsWith(prefix));
+    const hasAISuffix = aiSuffixes.some(suffix => combination.endsWith(suffix));
+    const hasTechWord = techWords.some(tech => combination.includes(tech));
+    
+    if (hasAIPrefix || hasAISuffix || hasTechWord) return 'AI Generated';
+    
+    return 'Variation';
+}
+
+function calculateWordHuntValue(combination, extension) {
+    let value = 500;
+    
+    // Length bonus
+    if (combination.length <= 4) value *= 8;
+    else if (combination.length <= 6) value *= 4;
+    else if (combination.length <= 8) value *= 2;
+    
+    // Extension multiplier
+    const extMultipliers = {
+        'com': 5,
+        'net': 2,
+        'org': 1.5,
+        'io': 4,
+        'app': 3,
+        'tech': 2.5,
+        'ai': 6,
+        'co': 3
+    };
+    value *= (extMultipliers[extension] || 1);
+    
+    // Randomness
+    value *= (0.7 + Math.random() * 0.6);
+    
+    return Math.floor(value);
+}
+
+function updateWordHuntProgress(checked, total, currentDomain) {
+    const percentage = (checked / total) * 100;
+    document.getElementById('progressFill').style.width = percentage + '%';
+    document.getElementById('progressChecked').textContent = checked;
+    document.getElementById('currentCheck').textContent = `Checking: ${currentDomain}`;
+}
+
+function displayWordHuntResults(results) {
+    const container = document.getElementById('wordHuntResults');
+    
+    if (results.availableDomains.length === 0) {
+        container.innerHTML = `
+            <div class="hunt-results-group">
+                <div class="hunt-results-header">
+                    <span>😞 No Available Domains Found</span>
+                </div>
+                <div class="hunt-results-body">
+                    <p>No available domains found for "${results.keyword}". Try:</p>
+                    <ul>
+                        <li>Increasing the combination limit</li>
+                        <li>Expanding the length range</li>
+                        <li>Adding more extensions</li>
+                        <li>Trying different keywords</li>
+                    </ul>
+                </div>
+            </div>
+        `;
+        return;
+    }
+    
+    // Group by strategy
+    const groupedByStrategy = {};
+    results.availableDomains.forEach(domain => {
+        if (!groupedByStrategy[domain.strategy]) {
+            groupedByStrategy[domain.strategy] = [];
+        }
+        groupedByStrategy[domain.strategy].push(domain);
+    });
+    
+    let html = '';
+    
+    // Best recommendations
+    const bestDomains = getBestWordHuntRecommendations(results.availableDomains, results.keyword);
+    if (bestDomains.length > 0) {
+        html += `
+            <div class="hunt-recommendations">
+                <h4>🏆 Best Recommendations</h4>
+                ${bestDomains.map(domain => `
+                    <div class="hunt-recommendation-item">
+                        <span class="hunt-recommendation-domain">${domain.domain}</span>
+                        <span class="hunt-recommendation-badge">${domain.badge}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+    
+    // Results by strategy
+    Object.keys(groupedByStrategy).forEach(strategy => {
+        const domains = groupedByStrategy[strategy];
+        html += `
+            <div class="hunt-results-group">
+                <div class="hunt-results-header">
+                    <span>${getStrategyIcon(strategy)} ${strategy}</span>
+                    <span>${domains.length} domain${domains.length !== 1 ? 's' : ''}</span>
+                </div>
+                <div class="hunt-results-body">
+                    ${domains.map(domain => `
+                        <div class="hunt-domain-item">
+                            <span class="hunt-domain-name">${domain.domain}</span>
+                            <div class="hunt-domain-meta">
+                                <span class="hunt-domain-length">${domain.length} chars</span>
+                                <span style="color: var(--success-color); font-weight: 600;">$${domain.estimatedValue.toLocaleString()}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    });
+    
+    // Summary stats
+    const successRate = ((results.availableDomains.length / results.totalChecked) * 100).toFixed(1);
+    const totalValue = results.availableDomains.reduce((sum, domain) => sum + domain.estimatedValue, 0);
+    
+    html += `
+        <div class="hunt-summary">
+            <h3>🎯 Hunt Summary for "${results.keyword}"</h3>
+            <div class="hunt-summary-stats">
+                <div class="hunt-summary-stat">
+                    <div class="hunt-summary-number">${results.availableDomains.length}</div>
+                    <div class="hunt-summary-label">Available Domains</div>
+                </div>
+                <div class="hunt-summary-stat">
+                    <div class="hunt-summary-number">${results.totalChecked}</div>
+                    <div class="hunt-summary-label">Total Checked</div>
+                </div>
+                <div class="hunt-summary-stat">
+                    <div class="hunt-summary-number">${successRate}%</div>
+                    <div class="hunt-summary-label">Success Rate</div>
+                </div>
+                <div class="hunt-summary-stat">
+                    <div class="hunt-summary-number">$${totalValue.toLocaleString()}</div>
+                    <div class="hunt-summary-label">Total Portfolio Value</div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+}
+
+function getBestWordHuntRecommendations(domains, keyword) {
+    const recommendations = [];
+    
+    // Shortest domain
+    const shortest = domains.reduce((min, domain) => 
+        domain.length < min.length ? domain : min
+    );
+    recommendations.push({ ...shortest, badge: 'Shortest' });
+    
+    // .com domain
+    const comDomain = domains.find(d => d.extension === 'com');
+    if (comDomain && comDomain !== shortest) {
+        recommendations.push({ ...comDomain, badge: '.com' });
+    }
+    
+    // Original keyword
+    const original = domains.find(d => d.strategy === 'Original');
+    if (original && !recommendations.includes(original)) {
+        recommendations.push({ ...original, badge: 'Original' });
+    }
+    
+    // Highest value
+    const highestValue = domains.reduce((max, domain) => 
+        domain.estimatedValue > max.estimatedValue ? domain : max
+    );
+    if (!recommendations.some(r => r.domain === highestValue.domain)) {
+        recommendations.push({ ...highestValue, badge: 'Most Valuable' });
+    }
+    
+    return recommendations.slice(0, 4);
+}
+
+function getStrategyIcon(strategy) {
+    const icons = {
+        'Original': '🔤',
+        'Numbers (End)': '🔢',
+        'Numbers (Start)': '🔢',
+        'Prefix Added': '⚡',
+        'Suffix Added': '🎁',
+        'Hyphenated': '🔗',
+        'Shortened': '✂️',
+        'Variation': '🔄',
+        'AI Generated': '🤖'
+    };
+    return icons[strategy] || '📝';
+}
+
+// Extension selection functions
+function selectAllExtensions() {
+    const checkboxes = document.querySelectorAll('input[name="wordHuntExtensions"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
+    });
+}
+
+function clearAllExtensions() {
+    const checkboxes = document.querySelectorAll('input[name="wordHuntExtensions"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+}

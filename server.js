@@ -330,6 +330,63 @@ app.get('/api/results/:category', async (req, res) => {
     }
 });
 
+// Word Hunt API
+app.post('/api/word-hunt', async (req, res) => {
+    try {
+        const { keyword, options = {} } = req.body;
+        
+        if (!keyword || !keyword.trim()) {
+            return res.status(400).json({ 
+                success: false, 
+                error: 'Keyword is required' 
+            });
+        }
+        
+        // CLI argümanları hazırla
+        const args = [keyword];
+        
+        if (options.limit) args.push('--limit', options.limit.toString());
+        if (options.minLength) args.push('--min-length', options.minLength.toString());
+        if (options.maxLength) args.push('--max-length', options.maxLength.toString());
+        if (options.extensions && options.extensions.length > 0) {
+            args.push('--extensions', options.extensions.join(','));
+        }
+        if (options.saveResults) args.push('--save');
+        
+        console.log('Word hunt request:', { keyword, options, args });
+        
+        // Word hunt komutunu çalıştır
+        const result = await runCliCommand('word-hunt', args);
+        
+        // JSON output'u parse et
+        let parsedResult;
+        try {
+            parsedResult = JSON.parse(result);
+        } catch (parseError) {
+            // Eğer JSON parse edilemiyorsa, text output olarak döndür
+            parsedResult = {
+                success: true,
+                output: result,
+                keyword: keyword
+            };
+        }
+        
+        res.json({ 
+            success: true, 
+            data: parsedResult,
+            timestamp: new Date().toISOString()
+        });
+        
+    } catch (error) {
+        console.error('Word hunt error:', error);
+        res.status(500).json({ 
+            success: false, 
+            error: error.message,
+            details: 'Word hunt command failed'
+        });
+    }
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });

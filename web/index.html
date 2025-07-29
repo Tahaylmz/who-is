@@ -44,6 +44,9 @@
             <button class="tab-btn" data-tab="domain-hunt">
                 <i class="fas fa-search"></i> Domain Hunt
             </button>
+            <button class="tab-btn" data-tab="word-hunt">
+                <i class="fas fa-crosshairs"></i> Word Hunt
+            </button>
             <button class="tab-btn" data-tab="ai-generator">
                 <i class="fas fa-robot"></i> AI Generator
             </button>
@@ -171,6 +174,192 @@ stackoverflow.com"></textarea>
 
                 <div class="results-container">
                     <div id="huntResults" class="results"></div>
+                </div>
+            </div>
+
+            <!-- Word Hunt Tab -->
+            <div class="tab-content" id="word-hunt">
+                <div class="card">
+                    <h2><i class="fas fa-crosshairs"></i> Word Hunt - Smart Domain Finder</h2>
+                    <p class="description">Enter a keyword and we'll find all available domain combinations using smart strategies!</p>
+                    
+                    <div class="word-hunt-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Target Keyword:</label>
+                                <input type="text" id="wordHuntKeyword" placeholder="e.g., tech, shop, blog" maxlength="20">
+                            </div>
+                            <div class="form-group">
+                                <label>Max Combinations:</label>
+                                <select id="wordHuntLimit">
+                                    <option value="25">25 combinations</option>
+                                    <option value="50" selected>50 combinations</option>
+                                    <option value="100">100 combinations</option>
+                                    <option value="200">200 combinations</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Length Range:</label>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <input type="number" id="wordHuntMinLength" value="3" min="3" max="20" style="width: 80px;">
+                                    <span>to</span>
+                                    <input type="number" id="wordHuntMaxLength" value="15" min="3" max="20" style="width: 80px;">
+                                    <span>chars</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Extensions:</label>
+                                <div class="extension-controls">
+                                    <button type="button" onclick="selectAllExtensions()" class="btn-small">Select All</button>
+                                    <button type="button" onclick="clearAllExtensions()" class="btn-small">Clear All</button>
+                                </div>
+                                <div class="extension-checkboxes">
+                                    <label class="extension-checkbox">
+                                        <input type="checkbox" name="wordHuntExtensions" value="com" checked>
+                                        <span class="extension-label">.com</span>
+                                    </label>
+                                    <label class="extension-checkbox">
+                                        <input type="checkbox" name="wordHuntExtensions" value="net" checked>
+                                        <span class="extension-label">.net</span>
+                                    </label>
+                                    <label class="extension-checkbox">
+                                        <input type="checkbox" name="wordHuntExtensions" value="org">
+                                        <span class="extension-label">.org</span>
+                                    </label>
+                                    <label class="extension-checkbox">
+                                        <input type="checkbox" name="wordHuntExtensions" value="io" checked>
+                                        <span class="extension-label">.io</span>
+                                    </label>
+                                    <label class="extension-checkbox">
+                                        <input type="checkbox" name="wordHuntExtensions" value="app">
+                                        <span class="extension-label">.app</span>
+                                    </label>
+                                    <label class="extension-checkbox">
+                                        <input type="checkbox" name="wordHuntExtensions" value="tech">
+                                        <span class="extension-label">.tech</span>
+                                    </label>
+                                    <label class="extension-checkbox">
+                                        <input type="checkbox" name="wordHuntExtensions" value="ai">
+                                        <span class="extension-label">.ai</span>
+                                    </label>
+                                    <label class="extension-checkbox">
+                                        <input type="checkbox" name="wordHuntExtensions" value="co">
+                                        <span class="extension-label">.co</span>
+                                    </label>
+                                </div>
+                                <small>Select one or more extensions to check</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="wordHuntSaveResults"> 
+                                    Save results to file
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button onclick="startWordHunt()" class="btn btn-primary" style="width: 100%;">
+                                    <i class="fas fa-crosshairs"></i> Start Word Hunt
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="word-hunt-options">
+                            <h3>🛠 Generation Options</h3>
+                            <div class="option-row">
+                                <div class="option-item">
+                                    <label>
+                                        <input type="checkbox" id="wordHuntUseAI" checked>
+                                        🤖 AI Suggestions
+                                    </label>
+                                    <small>Use AI to generate creative combinations</small>
+                                </div>
+                                <div class="option-item">
+                                    <label>
+                                        <input type="checkbox" id="wordHuntUseNumbers" checked>
+                                        🔢 Include Numbers
+                                    </label>
+                                    <small>Add numbers to combinations (1, 24, 2025, etc.)</small>
+                                </div>
+                                <div class="option-item">
+                                    <label>
+                                        <input type="checkbox" id="wordHuntUseHyphens" checked>
+                                        ➖ Include Hyphens
+                                    </label>
+                                    <small>Create hyphenated combinations</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="word-hunt-strategies">
+                        <h3>🎯 Hunt Strategies</h3>
+                        <div class="strategy-grid">
+                            <div class="strategy-card">
+                                <div class="strategy-icon">🔤</div>
+                                <div class="strategy-name">Original</div>
+                                <div class="strategy-desc">Exact keyword</div>
+                            </div>
+                            <div class="strategy-card">
+                                <div class="strategy-icon">🤖</div>
+                                <div class="strategy-name">AI Generated</div>
+                                <div class="strategy-desc">Creative AI combinations</div>
+                            </div>
+                            <div class="strategy-card">
+                                <div class="strategy-icon">🔢</div>
+                                <div class="strategy-name">Numbers</div>
+                                <div class="strategy-desc">keyword123, 2025keyword</div>
+                            </div>
+                            <div class="strategy-card">
+                                <div class="strategy-icon">⚡</div>
+                                <div class="strategy-name">Prefixes</div>
+                                <div class="strategy-desc">getkeyword, mykeyword</div>
+                            </div>
+                            <div class="strategy-card">
+                                <div class="strategy-icon">🎁</div>
+                                <div class="strategy-name">Suffixes</div>
+                                <div class="strategy-desc">keywordapp, keywordhub</div>
+                            </div>
+                            <div class="strategy-card">
+                                <div class="strategy-icon">🔗</div>
+                                <div class="strategy-name">Hyphenated</div>
+                                <div class="strategy-desc">keyword-pro, web-keyword</div>
+                            </div>
+                            <div class="strategy-card">
+                                <div class="strategy-icon">✂️</div>
+                                <div class="strategy-name">Shortened</div>
+                                <div class="strategy-desc">keyly, key24</div>
+                            </div>
+                            <div class="strategy-card">
+                                <div class="strategy-icon">🔄</div>
+                                <div class="strategy-name">Variations</div>
+                                <div class="strategy-desc">keywords, keyworded</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-hunt-progress" id="wordHuntProgress" style="display: none;">
+                    <div class="progress-header">
+                        <h3>🔍 Hunting Progress</h3>
+                        <div class="progress-stats">
+                            <span id="progressChecked">0</span> checked | 
+                            <span id="progressAvailable">0</span> available | 
+                            <span id="progressRate">0%</span> success rate
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="current-check" id="currentCheck">Preparing hunt...</div>
+                </div>
+
+                <div class="results-container">
+                    <div id="wordHuntResults" class="results"></div>
                 </div>
             </div>
 

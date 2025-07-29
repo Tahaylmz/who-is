@@ -10,6 +10,7 @@ const { setupMonitorCommand } = require('./commands/monitor');
 const { setupConfigShowCommand, setupConfigAddCommand, setupConfigRemoveCommand, setupConfigSetCommand, setupConfigResetCommand } = require('./commands/config');
 const { setupAICommand } = require('./commands/ai');
 const { setupTrendCommand } = require('./commands/trend');
+const { setupWordHuntCommand } = require('./commands/wordHunt');
 const {
     setupDomainConfigShowCommand,
     setupDomainConfigHyphensCommand,
@@ -55,6 +56,9 @@ setupAICommand(program);
 
 // Trend analizi komutları
 setupTrendCommand(program);
+
+// Word Hunt komutları
+setupWordHuntCommand(program);
 
 // Domain üretim konfigürasyonu komutları
 setupDomainConfigShowCommand(program);

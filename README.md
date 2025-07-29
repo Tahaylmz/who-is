@@ -1,8 +1,44 @@
-# Who is ✨ Özellikler
+# Who-Is Domain Checker & Hunter 🚀
 
-- ⚡ **Çok Hızlı**: Paralel isteklerle yüzlerce siteyi saniyeler içinde kontrol
-- 🎯 **Akıllı Analiz**: HTTP status kodları, yanıt süreleri ve server bilgileri
-- 🌐 **Domain Uzantı Kontrolü**: .com,## 🔧 Proje Yapısı
+Modern, hızlı ve güçlü domain kontrol sistemi. Site durumu, domain müsaitliği, AI destekli öneriler ve akıllı domain avcılığı.
+
+## ✨ Özellikler
+
+### ⚡ Site Durumu Kontrolü
+- **Çok Hızlı**: Paralel isteklerle yüzlerce siteyi saniyeler içinde kontrol
+- **Akıllı Analiz**: HTTP status kodları, yanıt süreleri ve server bilgileri
+- **Sürekli İzleme**: Gerçek zamanlı monitoring desteği
+- **Ayrıntılı Raporlar**: Performans ve availability metrikleri
+
+### 🔍 Domain Availability Checker
+- **Multi-Extension**: .com, .net, .io, .ai, .app, .tech ve daha fazlası
+- **WHOIS Entegrasyonu**: Hızlı ve güvenilir domain kontrolü
+- **Toplu İşlemler**: Yüzlerce domain'i aynı anda kontrol
+- **Akıllı Filtreleme**: Müsait domain'leri otomatik sıralama
+
+### 🤖 AI Destekli Domain Önerileri
+- **OpenAI Entegrasyonu**: GPT-4 destekli akıllı öneriler
+- **Sektör Bazlı**: Tech, business, creative alanlarına özel
+- **Trend Analizi**: 2025 tahminleri ve gelecek trendleri
+- **Market Değeri**: Otomatik domain değer hesaplaması
+
+### 🎯 Word Hunt - Akıllı Domain Avcılığı
+- **8 Strateji**: Original, AI, Numbers, Prefixes, Suffixes, Hyphens, Shortened, Variations
+- **Yaratıcı Kombinasyonlar**: AI destekli kelime oyunları
+- **Gerçek Zamanlı**: Canlı availability kontrolü
+- **Özelleştirilebilir**: AI, sayı ve tire kullanımı açma/kapama
+
+### 💰 Market Analizi
+- **Değer Hesaplama**: Uzunluk, uzantı ve kelime bazlı pricing
+- **Premium Hesaplama**: .com x10, .ai x15 gibi çarpanlar
+- **Trend Faktörü**: Popülerlik ve gelecek potansiyeli
+- **Portföy Değeri**: Toplu domain değer analizi
+
+### 🌐 Web Dashboard
+- **Modern Arayüz**: Responsive ve kullanıcı dostu tasarım
+- **Dark/Light Tema**: Otomatik tema değiştirme
+- **Gerçek Zamanlı**: Progress tracking ve canlı güncellemeler
+- **Mobil Uyumlu**: Tablet ve telefon desteği## 🔧 Proje Yapısı
 
 ```
 who-is/
@@ -65,77 +101,297 @@ who-is/
 
 ## 🚀 Kurulum
 
+### Gereksinimler
+- Node.js 16+ 
+- npm 8+
+- İnternet bağlantısı (domain kontrolleri için)
+
+### Hızlı Kurulum
 ```bash
-# Bağımlılıkları yükle
+# Repository'yi klonlayın
+git clone https://github.com/yourusername/who-is.git
+cd who-is
+
+# Bağımlılıkları yükleyin
 npm install
 
-# Global olarak yükle (opsiyonel)
-npm link
+# CLI kullanımı için global yükleme (opsiyonel)
+npm install -g .
+
+# Web dashboard başlatma
+npm start
+```
+
+### Development Setup
+```bash
+# Development dependencies
+npm install --dev
+
+# Linting ve formatting
+npm run lint
+npm run format
+
+# Testing
+npm test
 ```
 
 ## 📖 Kullanım
 
-### Tek Site Kontrolü
+### 🖥️ CLI Komutları
 
+#### Site Kontrolü
 ```bash
-# Basit kontrol
-node index.js check google.com
+# Tek site kontrolü
+who-is check https://example.com
 
-# Özel timeout ile
-node index.js check github.com --timeout 3000
-```
+# Çoklu site kontrolü
+who-is check https://site1.com https://site2.com
 
-### Çoklu Site Kontrolü
-
-Önce bir site listesi dosyası oluşturun (`sites.txt`):
-
-```
-google.com
-github.com
-stackoverflow.com
-# Bu bir yorum satırı - atlanır
-https://www.linkedin.com
-facebook.com
-```
-
-```bash
 # Liste dosyasından kontrol
-node index.js check-list sites.txt
+who-is check-list sites.txt
 
-# Eş zamanlı istek sayısını artır
-node index.js check-list sites.txt --concurrency 20
+# Detaylı analiz
+who-is check https://example.com --details
+
+# JSON çıktı
+who-is check https://example.com --json
 ```
 
-### Hızlı Test
-
+#### Domain Kontrolü
 ```bash
-# Birden fazla siteyi hızlıca test et
-node index.js quick google.com github.com stackoverflow.com
+# Tek domain kontrolü
+who-is domain example
+
+# Çoklu extension kontrolü
+who-is domain mysite --extensions com,net,org,io
+
+# Market analizi ile
+who-is domain techstartup --market-analysis
+
+# Batch domain kontrolü
+who-is domain-batch domains.txt
 ```
 
-### Domain Uzantı Kontrolü
-
+#### Word Hunt 🎯
 ```bash
-# Bir domain için farklı uzantıları kontrol et (erişilebilirlik)
-node index.js check-domain google
+# Basit kelime avcılığı
+who-is word-hunt "teknoloji"
 
-# Özel uzantılar belirle
-node index.js check-domain mysite --extensions .com,.net,.org,.com.tr
+# Gelişmiş seçeneklerle
+who-is word-hunt "fintech" --limit 50 --min-length 6 --max-length 12
 
-# Birden fazla domain için uzantı kontrolü
-node index.js check-domains google facebook twitter
+# AI önerileri ile
+who-is word-hunt "startup" --use-ai --extensions com,io,co
+
+# Sayı ve tire kullanımı
+who-is word-hunt "digital" --use-numbers --use-hyphens
+
+# Özel konfigürasyon
+who-is word-hunt "blockchain" --config custom-config.json
 ```
 
-### Domain Availability (Müsaitlik) Kontrolü
-
+#### AI Domain Generator 🤖
 ```bash
-# Bir domain için hangi uzantıların satın alınıp alınmadığını kontrol et
-node index.js check-availability myawesomesite
+# Sektör bazlı öneriler
+who-is ai-suggest "tech startup for developers"
 
-# Özel uzantılarla availability kontrolü
-node index.js check-availability mybrand --extensions .com,.com.tr,.net,.org
+# Çoklu öneri
+who-is ai-suggest "e-commerce platform" --count 20
 
-# Birden fazla domain için müsait olanları bul
+# Belirli uzunluk
+who-is ai-suggest "food delivery" --min-length 5 --max-length 10
+
+# Premium öneriler
+who-is ai-suggest "SaaS platform" --premium --market-analysis
+```
+
+### 🌐 Web Dashboard
+
+Web arayüzüne erişim:
+```bash
+# Sunucuyu başlat
+npm start
+
+# Tarayıcıdan erişim
+http://localhost:3000
+```
+
+#### Dashboard Özellikleri
+- **🏠 Ana Dashboard**: Site durumu, domain kontrolü, genel bakış
+- **🎯 Word Hunt**: Akıllı domain avcılığı sistemi
+- **🤖 AI Generator**: Sektör bazlı domain önerileri
+- **⚙️ Configuration**: Sistem ayarları ve konfigürasyon
+
+#### Klavye Kısayolları
+- `Ctrl/Cmd + K`: Hızlı arama
+- `Ctrl/Cmd + T`: Tema değiştirme
+- `Ctrl/Cmd + Enter`: Form gönderme
+- `Esc`: Modal kapatma
+
+### 📱 API Kullanımı
+
+#### REST Endpoints
+```javascript
+// Site kontrolü
+POST /api/check
+{
+    "url": "https://example.com",
+    "options": { "timeout": 5000 }
+}
+
+// Domain kontrolü
+POST /api/domain
+{
+    "domain": "example",
+    "extensions": [".com", ".net", ".io"]
+}
+
+// Word hunt
+POST /api/word-hunt
+{
+    "keyword": "teknoloji",
+    "options": {
+        "limit": 20,
+        "useAI": true,
+        "useNumbers": false,
+        "useHyphens": true
+    }
+}
+
+// AI öneriler
+POST /api/ai-suggest
+{
+    "description": "tech startup",
+    "sector": "tech",
+    "count": 10
+}
+```
+
+### ⚙️ Konfigürasyon
+
+#### config.json
+```json
+{
+    "defaultExtensions": ["com", "net", "org", "io", "co"],
+    "wordHunt": {
+        "defaultLimit": 20,
+        "maxLimit": 100,
+        "minLength": 3,
+        "maxLength": 15,
+        "timeout": 30000,
+        "strategies": [
+            "exact",
+            "prefix",
+            "suffix", 
+            "compound",
+            "synonyms",
+            "related",
+            "acronym",
+            "variations"
+        ]
+    },
+    "aiGenerator": {
+        "model": "gpt-3.5-turbo",
+        "maxTokens": 1000,
+        "temperature": 0.7,
+        "sectors": ["tech", "business", "creative", "health", "education"]
+    },
+    "server": {
+        "port": 3000,
+        "timeout": 10000,
+        "rateLimiting": {
+            "windowMs": 900000,
+            "max": 100
+        }
+    }
+}
+```
+
+#### Environment Variables
+```bash
+# .env dosyası
+PORT=3000
+NODE_ENV=production
+API_TIMEOUT=10000
+OPENAI_API_KEY=your_openai_key
+RATE_LIMIT_WINDOW=900000
+RATE_LIMIT_MAX=100
+```
+
+## 🏗️ Proje Yapısı
+
+```
+who-is/
+├── 📁 commands/               # CLI komutları
+│   ├── check.js              # Site kontrolü
+│   ├── domain.js             # Domain kontrolü
+│   ├── wordHunt.js           # Word hunt sistemi
+│   └── aiSuggest.js          # AI öneriler
+├── 📁 web/                   # Web dashboard
+│   ├── index.html            # Ana sayfa
+│   ├── app.js               # Frontend JavaScript
+│   ├── style.css            # Stil dosyası
+│   └── README.md            # Web dokümantasyonu
+├── 📁 utils/                 # Yardımcı fonksiyonlar
+│   ├── domainChecker.js     # Domain kontrol utilities
+│   ├── aiDomainGenerator.js # AI algoritmaları
+│   └── helpers.js           # Genel yardımcılar
+├── 📄 server.js              # Express sunucusu
+├── 📄 index.js               # CLI giriş noktası
+├── 📄 package.json           # NPM konfigürasyonu
+├── 📄 config.json            # Uygulama ayarları
+└── 📄 README.md              # Ana dokümantasyon
+```
+
+### Mimari Yaklaşım
+
+#### 🎯 Modüler Tasarım
+- **Commands**: CLI komutları için ayrı modüller
+- **Utils**: Tekrar kullanılabilir yardımcı fonksiyonlar
+- **Web**: Frontend için ayrı dizin
+- **Server**: API endpoints ve middleware
+
+#### 🔄 Data Flow
+```
+CLI Input → Command Parser → Utils → API → Results
+Web Input → Frontend JS → API → Utils → Response
+```
+
+#### 🧩 Component Architecture
+```
+┌─────────────────┐
+│   Presentation  │ ← Web UI, CLI Interface
+├─────────────────┤
+│   Application   │ ← Commands, Routing, Logic
+├─────────────────┤
+│   Domain        │ ← Business Logic, Algorithms
+├─────────────────┤
+│   Infrastructure│ ← HTTP Clients, File System
+└─────────────────┘
+```
+
+## 🛠️ Komut Seçenekleri ve Özellikler
+
+### Global Seçenekler
+- `-t, --timeout <ms>`: Zaman aşımı süresi (varsayılan: 5000ms)
+- `-v, --verbose`: Detaylı çıktı
+- `--json`: JSON formatında çıktı
+- `--no-color`: Renkli çıktıyı devre dışı bırak
+
+### Word Hunt Seçenekleri
+- `--limit <num>`: Maksimum sonuç sayısı (varsayılan: 20)
+- `--min-length <num>`: Minimum domain uzunluğu
+- `--max-length <num>`: Maksimum domain uzunluğu
+- `--use-ai`: AI önerilerini etkinleştir
+- `--use-numbers`: Sayı kullanımını etkinleştir
+- `--use-hyphens`: Tire kullanımını etkinleştir
+- `--extensions <list>`: Kontrol edilecek uzantılar
+
+### AI Generator Seçenekleri
+- `--count <num>`: Üretilecek domain sayısı (varsayılan: 5)
+- `--sector <name>`: Hedef sektör (tech, business, creative, health, education)
+- `--premium`: Premium kalite modunda çalıştır
+- `--market-analysis`: Market analizi dahil et
 node index.js find-available mysite mybrand mycompany
 ```
 

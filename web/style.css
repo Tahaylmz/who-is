@@ -1455,3 +1455,444 @@ select[multiple] {
         border: 1px solid #ccc;
     }
 }
+
+/* Word Hunt Styles */
+.word-hunt-form {
+    margin-bottom: 24px;
+}
+
+.word-hunt-options {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.word-hunt-options h3 {
+    margin: 0 0 16px 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.option-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.option-item {
+    padding: 12px;
+    background: var(--bg-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.option-item:hover {
+    border-color: var(--primary-color);
+    background: var(--hover-bg);
+}
+
+.option-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.option-item input[type="checkbox"] {
+    margin: 0;
+    scale: 1.2;
+}
+
+.option-item small {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: block;
+    margin-left: 24px;
+}
+
+.extension-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.extension-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.extension-checkbox:hover {
+    border-color: var(--primary-color);
+    background: var(--hover-bg);
+}
+
+.extension-checkbox input[type="checkbox"]:checked + .extension-label {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.extension-checkbox input[type="checkbox"] {
+    margin: 0;
+    scale: 1.1;
+}
+
+.extension-label {
+    color: var(--text-color);
+    font-family: 'JetBrains Mono', monospace;
+    transition: color 0.2s ease;
+}
+
+.extension-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.btn-small {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-small:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+}
+
+.word-hunt-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.word-hunt-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.word-hunt-form label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.word-hunt-form input,
+.word-hunt-form select {
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+}
+
+.word-hunt-form input:focus,
+.word-hunt-form select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.word-hunt-strategies {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 24px;
+}
+
+.word-hunt-strategies h3 {
+    margin: 0 0 16px 0;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.strategy-card {
+    background: var(--bg-primary);
+    padding: 12px;
+    border-radius: var(--border-radius-sm);
+    border: 2px solid var(--border-color);
+    text-align: center;
+    transition: var(--transition-fast);
+}
+
+.strategy-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.strategy-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.strategy-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+}
+
+.strategy-desc {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+.word-hunt-progress {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 24px;
+    border: 2px solid var(--primary-color);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.progress-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.progress-stats {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.progress-bar {
+    background: var(--bg-tertiary);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.progress-fill {
+    background: var(--gradient-primary);
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.current-check {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-family: 'Courier New', monospace;
+}
+
+.hunt-results-group {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.hunt-results-header {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 12px 16px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hunt-results-body {
+    padding: 16px;
+}
+
+.hunt-domain-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hunt-domain-item:last-child {
+    border-bottom: none;
+}
+
+.hunt-domain-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.hunt-domain-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.hunt-domain-length {
+    color: var(--text-secondary);
+}
+
+.hunt-domain-strategy {
+    background: var(--accent-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.hunt-summary {
+    background: var(--gradient-success);
+    color: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-top: 24px;
+    text-align: center;
+}
+
+.hunt-summary h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.2rem;
+}
+
+.hunt-summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.hunt-summary-stat {
+    text-align: center;
+}
+
+.hunt-summary-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.hunt-summary-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.hunt-recommendations {
+    background: var(--bg-secondary);
+    padding: 16px;
+    border-radius: var(--border-radius);
+    margin-top: 16px;
+}
+
+.hunt-recommendations h4 {
+    margin: 0 0 12px 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.hunt-recommendation-item {
+    background: var(--bg-primary);
+    padding: 12px;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 8px;
+    border: 2px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hunt-recommendation-item:last-child {
+    margin-bottom: 0;
+}
+
+.hunt-recommendation-domain {
+    font-weight: 600;
+    color: var(--success-color);
+}
+
+.hunt-recommendation-badge {
+    background: var(--warning-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Responsive Word Hunt */
+@media (max-width: 768px) {
+    .word-hunt-form .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .strategy-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .strategy-card {
+        padding: 8px;
+    }
+    
+    .strategy-icon {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+    }
+    
+    .strategy-name {
+        font-size: 0.8rem;
+    }
+    
+    .strategy-desc {
+        font-size: 0.7rem;
+    }
+    
+    .progress-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .hunt-summary-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .hunt-domain-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
