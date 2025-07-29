@@ -1,0 +1,269 @@
+[
+  {
+    "keywords": [
+      "mobile"
+    ],
+    "domains": [
+      {
+        "name": "getmobile.com",
+        "available": false,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://getmobile.com",
+          "isActive": true,
+          "statusCode": 200,
+          "statusText": "OK",
+          "responseTime": 1157,
+          "headers": {
+            "date": "Tue, 29 Jul 2025 07:58:58 GMT",
+            "content-type": "text/html; charset=UTF-8",
+            "transfer-encoding": "chunked",
+            "connection": "keep-alive",
+            "vary": "Accept-Encoding, Accept-Encoding, Accept-Encoding",
+            "expires": "Thu, 19 Nov 1981 08:52:00 GMT",
+            "cache-control": "max-age=1, must-revalidate",
+            "pragma": "no-cache",
+            "x-xss-protection": "1; mode=block",
+            "x-frame-options": "SAMEORIGIN",
+            "x-content-type-options": "nosniff",
+            "last-modified": "Fri, 25 Jul 2025 10:34:31 GMT",
+            "cf-cache-status": "HIT",
+            "age": "334122",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+            "speculation-rules": "\"/cdn-cgi/speculation\"",
+            "server": "cloudflare",
+            "cf-ray": "966b12ff4c742d5e-IST",
+            "alt-svc": "h3=\":443\"; ma=86400"
+          },
+          "redirectUrl": "https://www.atom.com/name/GetMobile",
+          "contentLength": 271756,
+          "lastModified": "Fri, 25 Jul 2025 10:34:31 GMT",
+          "server": "cloudflare",
+          "timestamp": "2025-07-29T07:58:58.349Z"
+        }
+      },
+      {
+        "name": "mymobile.com",
+        "available": true,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://mymobile.com",
+          "isActive": false,
+          "statusCode": null,
+          "statusText": "getaddrinfo ENOTFOUND mymobile.com",
+          "responseTime": null,
+          "error": {
+            "code": "ENOTFOUND",
+            "message": "getaddrinfo ENOTFOUND mymobile.com",
+            "type": "DNS_RESOLUTION_FAILED"
+          },
+          "timestamp": "2025-07-29T07:58:57.507Z"
+        }
+      },
+      {
+        "name": "themobile.com",
+        "available": false,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://themobile.com",
+          "isActive": true,
+          "statusCode": 200,
+          "statusText": "OK",
+          "responseTime": 839,
+          "headers": {
+            "content-type": "text/html",
+            "date": "Tue, 29 Jul 2025 07:58:58 GMT",
+            "content-length": "114"
+          },
+          "redirectUrl": "https://themobile.com/",
+          "contentLength": "114",
+          "timestamp": "2025-07-29T07:58:58.050Z"
+        }
+      },
+      {
+        "name": "newmobile.com",
+        "available": false,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://newmobile.com",
+          "isActive": true,
+          "statusCode": 200,
+          "statusText": "OK",
+          "responseTime": 1278,
+          "headers": {
+            "server": "nginx",
+            "date": "Tue, 29 Jul 2025 07:58:58 GMT",
+            "content-type": "text/html; charset=UTF-8",
+            "content-length": "13899",
+            "connection": "keep-alive",
+            "x-frame-options": "SAMEORIGIN",
+            "x-xss-protection": "1; mode=block",
+            "x-content-type-options": "nosniff",
+            "x-robots-tag": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+            "vary": "Accept-Encoding",
+            "access-control-allow-origin": "newmobile.com",
+            "x-cache-status": "STALE",
+            "strict-transport-security": "max-age=15768000; includeSubDomains"
+          },
+          "redirectUrl": "https://www.newmobile.com/",
+          "contentLength": "13899",
+          "server": "nginx",
+          "timestamp": "2025-07-29T07:58:58.490Z"
+        }
+      },
+      {
+        "name": "promobile.com",
+        "available": true,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://promobile.com",
+          "isActive": false,
+          "statusCode": null,
+          "statusText": "certificate has expired",
+          "responseTime": null,
+          "error": {
+            "code": "CERT_HAS_EXPIRED",
+            "message": "certificate has expired",
+            "type": "UNKNOWN_ERROR"
+          },
+          "timestamp": "2025-07-29T07:58:58.189Z"
+        }
+      },
+      {
+        "name": "smartmobile.com",
+        "available": false,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://smartmobile.com",
+          "isActive": true,
+          "statusCode": 200,
+          "statusText": "OK",
+          "responseTime": 1737,
+          "headers": {
+            "server": "nginx",
+            "date": "Tue, 29 Jul 2025 07:58:58 GMT",
+            "content-type": "text/html",
+            "content-length": "91310",
+            "last-modified": "Tue, 01 Jul 2025 15:55:23 GMT",
+            "connection": "keep-alive",
+            "etag": "\"686404eb-164ae\"",
+            "strict-transport-security": "max-age=63072000; includeSubDomains",
+            "x-powered-by": "PleskLin",
+            "accept-ranges": "bytes"
+          },
+          "redirectUrl": "https://www.smartmobile.com/",
+          "contentLength": "91310",
+          "lastModified": "Tue, 01 Jul 2025 15:55:23 GMT",
+          "server": "nginx",
+          "timestamp": "2025-07-29T07:58:58.949Z"
+        }
+      },
+      {
+        "name": "fastmobile.com",
+        "available": true,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://fastmobile.com",
+          "isActive": false,
+          "statusCode": null,
+          "statusText": "timeout of 10000ms exceeded",
+          "responseTime": null,
+          "error": {
+            "code": "ECONNABORTED",
+            "message": "timeout of 10000ms exceeded",
+            "type": "UNKNOWN_ERROR"
+          },
+          "timestamp": "2025-07-29T07:59:07.219Z"
+        }
+      },
+      {
+        "name": "easymobile.com",
+        "available": false,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://easymobile.com",
+          "isActive": true,
+          "statusCode": 200,
+          "statusText": "OK",
+          "responseTime": 1806,
+          "headers": {
+            "server": "nginx",
+            "date": "Tue, 29 Jul 2025 07:58:59 GMT",
+            "content-type": "text/html",
+            "transfer-encoding": "chunked",
+            "connection": "keep-alive",
+            "vary": "Accept-Encoding",
+            "last-modified": "Mon, 22 Jul 2024 13:22:06 GMT",
+            "etag": "W/\"18b2d-61dd5ee796578\"",
+            "x-httpd-modphp": "1",
+            "host-header": "8441280b0c35cbc1147f8ba998a563a7",
+            "x-proxy-cache": "HIT"
+          },
+          "redirectUrl": "https://www.easymobile.com/",
+          "contentLength": 101133,
+          "lastModified": "Mon, 22 Jul 2024 13:22:06 GMT",
+          "server": "nginx",
+          "timestamp": "2025-07-29T07:58:59.019Z"
+        }
+      },
+      {
+        "name": "bestmobile.com",
+        "available": true,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://bestmobile.com",
+          "isActive": false,
+          "statusCode": null,
+          "statusText": "timeout of 10000ms exceeded",
+          "responseTime": null,
+          "error": {
+            "code": "ECONNABORTED",
+            "message": "timeout of 10000ms exceeded",
+            "type": "UNKNOWN_ERROR"
+          },
+          "timestamp": "2025-07-29T07:59:07.219Z"
+        }
+      },
+      {
+        "name": "topmobile.com",
+        "available": false,
+        "isPremium": false,
+        "checkResult": {
+          "url": "https://topmobile.com",
+          "isActive": true,
+          "statusCode": 200,
+          "statusText": "OK",
+          "responseTime": 1445,
+          "headers": {
+            "alt-svc": "h3=\":443\"; ma=2592000",
+            "content-length": "7134",
+            "content-security-policy": "frame-ancestors 'none'",
+            "content-type": "text/html",
+            "date": "Tue, 29 Jul 2025 07:58:58 GMT",
+            "etag": "\"1ah46y4\"",
+            "server": "Caddy",
+            "strict-transport-security": "max-age=31536000; includeSubDomains",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-sveltekit-page": "true"
+          },
+          "redirectUrl": "https://topmobile.com/",
+          "contentLength": "7134",
+          "server": "Caddy",
+          "timestamp": "2025-07-29T07:58:58.658Z"
+        }
+      }
+    ],
+    "options": {
+      "extensions": [
+        ".com"
+      ],
+      "maxResults": 10,
+      "checkAvailability": true,
+      "filterPremium": true
+    },
+    "timestamp": "2025-07-29T07:59:17.635Z",
+    "huntId": "hunt_mdo8x9j6n7u41lnsktk",
+    "id": "mdo8x9j7tdafp6vx5y"
+  }
+]

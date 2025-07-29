@@ -1,51 +1,395 @@
-# Who-Is Domain Checker & Hunter 🚀
+# 🌐 Who Is - Domain & Site Checker
 
-Modern, hızlı ve güçlü domain kontrol sistemi. Site durumu, domain müsaitliği, AI destekli öneriler ve akıllı domain avcılığı.
+Modern Clean Architecture ile güçlendirilmiş domain ve site kontrol sistemi. Hem CLI hem de Web API desteği ile hızlı, güvenilir ve kapsamlı domain analizi.
 
-## ✨ Özellikler
+## 🚀 Özellikler
 
-### ⚡ Site Durumu Kontrolü
-- **Çok Hızlı**: Paralel isteklerle yüzlerce siteyi saniyeler içinde kontrol
-- **Akıllı Analiz**: HTTP status kodları, yanıt süreleri ve server bilgileri
-- **Sürekli İzleme**: Gerçek zamanlı monitoring desteği
-- **Ayrıntılı Raporlar**: Performans ve availability metrikleri
+### ⚡ Site Health Checker
+- Anında site durumu kontrolü
+- Performans analizi (response time)
+- Toplu site taraması
+- Sağlık durumu raporlama
 
-### 🔍 Domain Availability Checker
-- **Multi-Extension**: .com, .net, .io, .ai, .app, .tech ve daha fazlası
-- **WHOIS Entegrasyonu**: Hızlı ve güvenilir domain kontrolü
-- **Toplu İşlemler**: Yüzlerce domain'i aynı anda kontrol
-- **Akıllı Filtreleme**: Müsait domain'leri otomatik sıralama
+### 🌐 Domain Scanner
+- Domain uzantı kontrolü (.com, .net, .org vb.)
+- Domain erişilebilirlik analizi
+- WHOIS bilgileri
+- DNS çözümleme kontrolü
 
-### 🤖 AI Destekli Domain Önerileri
-- **OpenAI Entegrasyonu**: GPT-4 destekli akıllı öneriler
-- **Sektör Bazlı**: Tech, business, creative alanlarına özel
-- **Trend Analizi**: 2025 tahminleri ve gelecek trendleri
-- **Market Değeri**: Otomatik domain değer hesaplaması
+### 🤖 AI Domain Generator
+- GPT destekli domain önerileri
+- Brandable domain üretimi
+- Anahtar kelime bazlı öneriler
+- Modern/Premium stil seçenekleri
 
-### 🎯 Word Hunt - Akıllı Domain Avcılığı
-- **8 Strateji**: Original, AI, Numbers, Prefixes, Suffixes, Hyphens, Shortened, Variations
-- **Yaratıcı Kombinasyonlar**: AI destekli kelime oyunları
-- **Gerçek Zamanlı**: Canlı availability kontrolü
-- **Özelleştirilebilir**: AI, sayı ve tire kullanımı açma/kapama
+### 🕵️ Domain Hunter
+- Otomatik domain keşif sistemi
+- Müsaitlik kontrolü
+- Toplu domain analizi
+- Yüksek performanslı tarama
 
-### 💰 Market Analizi
-- **Değer Hesaplama**: Uzunluk, uzantı ve kelime bazlı pricing
-- **Premium Hesaplama**: .com x10, .ai x15 gibi çarpanlar
-- **Trend Faktörü**: Popülerlik ve gelecek potansiyeli
-- **Portföy Değeri**: Toplu domain değer analizi
+## 📦 Kurulum
 
-### 🌐 Web Dashboard
-- **Modern Arayüz**: Responsive ve kullanıcı dostu tasarım
-- **Dark/Light Tema**: Otomatik tema değiştirme
-- **Gerçek Zamanlı**: Progress tracking ve canlı güncellemeler
-- **Mobil Uyumlu**: Tablet ve telefon desteği## 🔧 Proje Yapısı
+```bash
+# Repository'yi klonlayın
+git clone <repo-url>
+cd who-is
+
+# Bağımlılıkları yükleyin
+npm install
+
+# CLI'ı test edin
+npm start help
+```
+
+## 🎯 Kullanım
+
+### 🖥️ Modern CLI (Clean Architecture)
+
+```bash
+# CLI yardım
+npm start help
+
+# Site kontrol etme
+npm start check site https://google.com
+
+# Çoklu site kontrolü
+npm start check batch https://google.com https://github.com
+
+# Domain üretimi
+npm start gen quick tech
+npm start gen keywords startup app
+
+# Domain avcısı
+npm start hunt domains tech startup
+npm start hunt quick mobile
+```
+
+### 🌐 Web Server
+
+```bash
+# Web server başlat
+npm run server
+
+# Development mode
+npm run server:dev
+```
+
+Web arayüzüne http://localhost:3001 adresinden erişebilirsiniz.
+
+## 🔌 API Endpoints
+
+### Site Kontrolü
+```bash
+# Tek site kontrolü
+POST /api/check
+{
+  "url": "https://example.com",
+  "timeout": 5000
+}
+
+# Çoklu site kontrolü
+POST /api/check-multiple
+{
+  "urls": ["https://site1.com", "https://site2.com"],
+  "concurrency": 10
+}
+```
+
+### Domain İşlemleri
+```bash
+# Domain uzantı kontrolü
+POST /api/domain-check
+{
+  "domain": "example",
+  "extensions": [".com", ".net", ".org"]
+}
+
+# Domain müsaitlik kontrolü
+POST /api/domain-availability
+{
+  "domain": "example.com"
+}
+```
+
+### AI ve Hunting
+```bash
+# AI domain üretimi
+POST /api/ai-domains
+{
+  "keywords": ["tech", "startup"],
+  "count": 10,
+  "style": "modern"
+}
+
+# Domain avcısı
+POST /api/hunt
+{
+  "keywords": ["tech", "startup"],
+  "extensions": [".com", ".net"],
+  "limit": 100,
+  "checkAvailability": true
+}
+```
+
+## 🏗️ Clean Architecture Modül Yapısı
+
+### 📁 Proje Klasör Yapısı
 
 ```
 who-is/
-├── 📁 commands/           # Komut modülleri
-│   ├── check.js          # Site kontrol komutları
-│   ├── domain.js         # Domain işlemleri
-│   ├── hunt.js           # Domain hunting sistemi
+├── 🌐 Entry Points (Root)
+│   ├── cli.js              # Modern CLI entry point
+│   ├── legacy.js           # Legacy CLI bridge entry point
+│   ├── server.js           # Modern web server entry point
+│   └── legacy-server.js    # Legacy web server entry point
+│
+├── 📦 src/ (Clean Architecture)
+│   ├── 🏛️ domain/          # İş mantığı ve kurallar
+│   │   ├── entities/       # Domain entity'leri (SiteEntity, DomainEntity)
+│   │   ├── repositories/   # Repository interface'leri (ISiteRepository)
+│   │   ├── services/       # Domain servisler (DomainValidationService)
+│   │   └── index.js        # Domain layer export'ları
+│   │
+│   ├── 💼 application/     # Use case'ler (İş akışları)
+│   │   ├── usecases/       # Use case implementasyonları
+│   │   │   ├── CheckSiteUseCaseNew.js
+│   │   │   ├── GenerateDomainUseCase.js
+│   │   │   └── HuntDomainUseCase.js
+│   │   └── index.js        # Application layer export'ları
+│   │
+│   ├── 🔧 infrastructure/ # Dış bağımlılıklar
+│   │   ├── services/       # External servis implementasyonları
+│   │   │   ├── HttpSiteChecker.js
+│   │   │   ├── OpenAIDomainGenerator.js
+│   │   │   ├── LegacySiteChecker.js      # Legacy: checker.js
+│   │   │   ├── LegacyDomainGenerator.js  # Legacy: domain-generator.js
+│   │   │   └── LegacyAIDomainGenerator.js # Legacy: aiDomainGenerator.js
+│   │   ├── repositories/   # Veri erişim implementasyonları
+│   │   │   └── FileDomainRepository.js
+│   │   ├── adapters/       # Bridge pattern adaptörleri
+│   │   │   └── LegacyServiceBridge.js
+│   │   ├── data/           # Domain results ve data files
+│   │   ├── config/         # Konfigürasyon dosyaları
+│   │   ├── web/            # Web assets ve static files
+│   │   ├── tests/          # Test dosyaları
+│   │   └── index.js        # Infrastructure layer export'ları
+│   │
+│   ├── 🖥️ presentation/   # Kullanıcı arayüzleri
+│   │   ├── cli/            # Command line interface
+│   │   │   ├── CLIApplicationNew.js      # Modern CLI
+│   │   │   ├── LegacyCLI.js              # Legacy: index.js
+│   │   │   ├── LegacyCLIBridge.js        # Legacy CLI bridge
+│   │   │   └── commands/                 # CLI komut modülleri
+│   │   ├── web/            # Web server ve UI
+│   │   │   ├── ModernWebServer.js        # Modern web server
+│   │   │   ├── LegacyWebServer.js        # Legacy: server.js
+│   │   │   └── routes/                   # API route'ları
+│   │   └── index.js        # Presentation layer export'ları
+│   │
+│   ├── 🔗 shared/         # Ortak yardımcılar
+│   │   ├── utils/          # Logger, validation, helpers
+│   │   ├── constants/      # Sabit değerler
+│   │   ├── types/          # Type definitions
+│   │   └── index.js        # Shared layer export'ları
+│   │
+│   └── index.js            # Ana Clean Architecture export'u
+│
+└── 📄 Configuration Files
+    ├── package.json        # NPM konfigürasyonu
+    ├── README.md          # Bu dosya
+    └── sites.txt          # Test için örnek site listesi
+```
+
+### 🎯 Clean Architecture Katmanları
+
+#### 🏛️ Domain Layer (En İç Katman)
+- **Entities**: İş nesneleri (SiteEntity, DomainEntity)
+- **Repositories**: Veri erişim interface'leri
+- **Services**: Domain'e özgü iş kuralları
+- **Bağımlılık**: Hiçbir dış katmana bağımlı değil
+
+#### 💼 Application Layer (Use Cases)
+- **Use Cases**: Uygulama iş akışları
+- **Orchestration**: Domain servisleri koordine eder
+- **Bağımlılık**: Sadece Domain layer'a bağımlı
+
+#### 🔧 Infrastructure Layer (En Dış Katman)
+- **Services**: HTTP, AI, Database implementasyonları
+- **Repositories**: Veri erişim implementasyonları
+- **Adapters**: Legacy sistem entegrasyonu
+- **External**: API'lar, dosya sistemi, database
+
+#### 🖥️ Presentation Layer (Kullanıcı Arayüzü)
+- **CLI**: Command line interface'ler
+- **Web**: Web server ve REST API'lar
+- **Controllers**: Request/Response handling
+
+#### 🔗 Shared Layer (Ortak Kaynaklar)
+- **Utils**: Logger, validators, helpers
+- **Constants**: Uygulama sabitleri
+- **Types**: Ortak type definitions
+
+### 🔄 Legacy Migration Strategy
+
+#### Bridge Pattern Implementasyonu
+```javascript
+// Legacy servisleri Clean Architecture'a entegre etme
+const { LegacyServiceBridge } = require('./src/infrastructure/adapters/LegacyServiceBridge');
+
+const bridge = new LegacyServiceBridge();
+await bridge.checkSite(url);        // Legacy checker.js → Clean Architecture
+await bridge.generateDomains(keywords); // Legacy domain-generator.js → Clean Architecture
+```
+
+#### Modül Taşıma Mapping'i
+```
+Legacy Dosya               →  Clean Architecture Konumu
+──────────────────────────    ─────────────────────────────────────────────
+checker.js                →  src/infrastructure/services/LegacySiteChecker.js
+domain-generator.js        →  src/infrastructure/services/LegacyDomainGenerator.js
+aiDomainGenerator.js       →  src/infrastructure/services/LegacyAIDomainGenerator.js
+index.js                   →  src/presentation/cli/LegacyCLI.js
+server.js                  →  src/presentation/web/LegacyWebServer.js
+utils/                     →  src/shared/utils/
+commands/                  →  src/application/commands/
+data/                      →  src/infrastructure/data/
+config/                    →  src/infrastructure/config/
+```
+
+## 🎯 Script Komutları
+
+```bash
+# Modern sistem
+npm start              # Yeni CLI
+npm run server         # Modern web server
+npm run server:dev     # Development mode
+
+# Legacy sistem
+npm run legacy         # Bridge CLI
+npm run old-server     # Eski web server
+npm run start-old      # Eski CLI
+
+# Development
+npm run dev           # CLI development
+npm run web-dev       # Web development
+npm test             # Test çalıştır
+```
+
+## 🔧 Yapılandırma
+
+### Environment Variables
+
+```bash
+# .env dosyası oluşturun
+PORT=3001                    # Web server portu
+OPENAI_API_KEY=your_key     # AI domain generation için
+LOG_LEVEL=info              # Log seviyesi
+DEFAULT_TIMEOUT=5000        # Varsayılan timeout
+```
+
+### CLI Ayarları
+
+```bash
+# Varsayılan timeout
+export WHOIS_TIMEOUT=5000
+
+# Concurrency limiti
+export MAX_CONCURRENCY=10
+```
+
+## 📊 Performans
+
+- **Site kontrolü**: ~100-500ms
+- **Toplu tarama**: 10-50 site/saniye
+- **Domain hunting**: 1000+ domain/dakika
+- **AI generation**: 2-5 saniye/10 domain
+
+## 🛠️ Geliştirme
+
+### Test Etme
+
+```bash
+# Hızlı test
+npm start check https://google.com
+
+# AI test
+npm start generate tech --count 5
+
+# Server test
+curl -X POST http://localhost:3001/api/check \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://google.com"}'
+```
+
+### Debug Mode
+
+```bash
+# CLI debug
+DEBUG=1 npm start
+
+# Server debug
+DEBUG=1 npm run server
+```
+
+## 🎨 Legacy Entegrasyonu
+
+### Mevcut Dosyalar
+
+- `domain-generator.js` → AI domain generation
+- `aiDomainGenerator.js` → Advanced AI features  
+- `checker.js` → Site checking logic
+- `server.js` → Web server
+- `index.js` → CLI interface
+
+### Bridge Pattern
+
+`LegacyServiceBridge` bu dosyaları Clean Architecture ile entegre eder:
+
+```javascript
+const bridge = new LegacyServiceBridge();
+
+// Eski kod yeni sistemde çalışır
+await bridge.checkSite(url);
+await bridge.generateDomains(keywords);
+await bridge.huntDomains(keywords);
+```
+
+## � Roadmap
+
+- [ ] Gelişmiş AI domain analizi
+- [ ] Real-time domain monitoring
+- [ ] REST API documentation (Swagger)
+- [ ] Database persistence
+- [ ] Multi-language support
+- [ ] Docker containerization
+
+## 🤝 Katkıda Bulunma
+
+1. Repository'yi fork edin
+2. Feature branch oluşturun
+3. Değişikliklerinizi commit edin
+4. Pull request gönderin
+
+## 📄 Lisans
+
+MIT License - Detaylar için `LICENSE` dosyasına bakın.
+
+## 🎯 Hızlı Başlangıç
+
+```bash
+# Hemen başlayın
+npm install
+npm start help
+
+# Web server'ı başlatın
+npm run server
+
+# Legacy bridge'i deneyin
+npm run legacy help
+```
+
+**Clean Architecture + Legacy Uyumluluğu = En İyi İkisi! 🚀**
 │   ├── monitor.js        # İzleme komutları
 │   ├── ai.js             # AI domain generation komutları
 │   ├── trend.js          # Trend analizi komutları

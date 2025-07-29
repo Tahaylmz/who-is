@@ -1,0 +1,926 @@
+[
+  {
+    "type": "generation",
+    "keywords": [
+      "ai",
+      "ml",
+      "robot"
+    ],
+    "suggestions": [
+      {
+        "name": "aiml",
+        "score": 100,
+        "length": 4,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 100,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "mlai",
+        "score": 100,
+        "length": 4,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 100,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "airobot",
+        "score": 100,
+        "length": 7,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 100,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-ai",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "robotai",
+        "score": 100,
+        "length": 7,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 100,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-ai",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "mlrobot",
+        "score": 100,
+        "length": 7,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 100,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-ml",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "robotml",
+        "score": 100,
+        "length": 7,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 100,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-ml",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "getai",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "myai",
+        "score": 100,
+        "length": 4,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "theai",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "newai",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "proai",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "smartai",
+        "score": 100,
+        "length": 7,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "fastai",
+        "score": 100,
+        "length": 6,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "easyai",
+        "score": 100,
+        "length": 6,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "bestai",
+        "score": 100,
+        "length": 6,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "topai",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "getml",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "myml",
+        "score": 95,
+        "length": 4,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 70,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "theml",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "newml",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "proml",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "smartml",
+        "score": 100,
+        "length": 7,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "fastml",
+        "score": 100,
+        "length": 6,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "easyml",
+        "score": 100,
+        "length": 6,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "bestml",
+        "score": 100,
+        "length": 6,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "topml",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ml"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "getrobot",
+        "score": 100,
+        "length": 8,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "myrobot",
+        "score": 100,
+        "length": 7,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "therobot",
+        "score": 100,
+        "length": 8,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "newrobot",
+        "score": 100,
+        "length": 8,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "prorobot",
+        "score": 100,
+        "length": 8,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "smartrobot",
+        "score": 100,
+        "length": 10,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "fastrobot",
+        "score": 100,
+        "length": 9,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "easyrobot",
+        "score": 100,
+        "length": 9,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "bestrobot",
+        "score": 100,
+        "length": 9,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "toprobot",
+        "score": 100,
+        "length": 8,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 80,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "memorable",
+          "pronounceable",
+          "contains-robot"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "aihub",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 90,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "aiapp",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 90,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "ailab",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 90,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      },
+      {
+        "name": "aibox",
+        "score": 100,
+        "length": 5,
+        "hasNumbers": false,
+        "hasDashes": false,
+        "memorability": 100,
+        "brandability": 100,
+        "seoValue": 90,
+        "extensions": [
+          ".com",
+          ".net",
+          ".org",
+          ".io"
+        ],
+        "tags": [
+          "short",
+          "memorable",
+          "pronounceable",
+          "contains-ai"
+        ],
+        "created": "2025-07-29T08:54:21.594Z"
+      }
+    ],
+    "options": {
+      "count": 40,
+      "style": "modern",
+      "businessType": "tech",
+      "maxLength": 12,
+      "includeNumbers": true,
+      "includeDashes": false,
+      "filterExisting": true,
+      "saveResults": true
+    },
+    "timestamp": "2025-07-29T08:54:21.594Z",
+    "id": "mdoaw2vulrzbhi36oto"
+  }
+]
