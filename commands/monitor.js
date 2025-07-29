@@ -6,7 +6,7 @@ const { displayMultipleResults } = require('../utils/display');
 function setupMonitorCommand(program) {
     program
         .command('monitor <file>')
-        .description('Siteleri sürekli izler')
+        .description('👁️  Sürekli bekçi - Siteleri 7/24 izler ve raporlar')
         .option('-i, --interval <seconds>', 'Kontrol aralığı (saniye)', '60')
         .option('-c, --concurrency <num>', 'Eş zamanlı istek sayısı', '10')
         .option('-t, --timeout <ms>', 'Zaman aşımı süresi (milisaniye)', '5000')

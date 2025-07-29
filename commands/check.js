@@ -6,7 +6,7 @@ const { displaySingleResult, displayMultipleResults } = require('../utils/displa
 function setupCheckCommand(program) {
     program
         .command('check <url>')
-        .description('Tek bir sitenin durumunu kontrol eder')
+        .description('⚡ Site sağlık tarayıcısı - Anında durum ve performans analizi')
         .option('-t, --timeout <ms>', 'Zaman aşımı süresi (milisaniye)', '5000')
         .action(async (url, options) => {
             const checker = new SiteChecker({ timeout: parseInt(options.timeout) });
@@ -22,7 +22,7 @@ function setupCheckCommand(program) {
 function setupCheckListCommand(program) {
     program
         .command('check-list <file>')
-        .description('Dosyadan okunan sitelerin durumunu kontrol eder')
+        .description('📋 Toplu site tarayıcısı - Dosyadan yüzlerce siteyi hızla kontrol eder')
         .option('-c, --concurrency <num>', 'Eş zamanlı istek sayısı', '10')
         .option('-t, --timeout <ms>', 'Zaman aşımı süresi (milisaniye)', '5000')
         .action(async (file, options) => {
@@ -56,7 +56,7 @@ function setupCheckListCommand(program) {
 function setupQuickCommand(program) {
     program
         .command('quick <urls...>')
-        .description('Birden fazla URL\'yi hızlıca test eder')
+        .description('🚀 Turbo test - Çoklu URL\'leri ışık hızında kontrol eder')
         .option('-t, --timeout <ms>', 'Zaman aşımı süresi (milisaniye)', '3000')
         .action(async (urls, options) => {
             const checker = new SiteChecker({ timeout: parseInt(options.timeout) });

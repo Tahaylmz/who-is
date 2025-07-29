@@ -8,7 +8,7 @@ const ExtensionConfig = require('../utils/extensionConfig');
 function setupHuntCommand(program) {
     program
         .command('hunt')
-        .description('Sürekli rastgele domain üretip müsait olanları arar ve dosyaya kaydeder')
+        .description('🏹 Domain avcısı - Sürekli akıllı domain üretip gizli hazineleri keşfeder')
         .option('-c, --categories <cats>', 'Aranacak kategoriler (virgülle ayırın)', 'premium,tech,business,creative,health,ecommerce,short,numbers')
         .option('-s, --sector <sector>', 'Belirli sektör için akıllı domain üretimi (tech,business,creative,health,ecommerce)', null)
         .option('--ai', 'Yapay zeka destekli domain üretimi kullan', false)

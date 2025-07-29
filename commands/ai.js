@@ -7,7 +7,7 @@ const ExtensionConfig = require('../utils/extensionConfig');
 function setupAICommand(program) {
     program
         .command('ai-suggest')
-        .description('AI kullanarak sektör bazlı domain önerileri üretir ve analiz eder')
+        .description('🤖 AI beyin fırtınası - Sektör odaklı yaratıcı domain önerileri üretir')
         .option('-s, --sector <sector>', 'Sektör seçin (tech,business,creative,health,ecommerce,premium,startup)', 'tech')
         .option('-c, --count <num>', 'Üretilecek domain sayısı', '10')
         .option('--check', 'Üretilen domain\'lerin müsaitlik durumunu kontrol et', false)

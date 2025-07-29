@@ -28,7 +28,7 @@ const program = new Command();
 // Ana program konfigürasyonu
 program
     .name('who-is')
-    .description('Çok hızlı web sitesi durum kontrol sistemi')
+    .description('🔍 Domain avcısı ve site keşifçisi - AI destekli akıllı domain bulma motoru')
     .version('1.0.0');
 
 // Komutları kurulum

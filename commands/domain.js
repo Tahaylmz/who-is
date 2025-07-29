@@ -7,7 +7,7 @@ const { displayDomainResults, displayAvailabilityResults, displayMultipleAvailab
 function setupCheckDomainCommand(program) {
     program
         .command('check-domain <domain>')
-        .description('Bir domain için farklı uzantıları kontrol eder')
+        .description('🌐 Domain kâşifi - Tüm uzantılarıyla erişilebilirlik taraması')
         .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
         .option('-t, --timeout <ms>', 'Zaman aşımı süresi (milisaniye)', '5000')
         .action(async (domain, options) => {
@@ -31,7 +31,7 @@ function setupCheckDomainCommand(program) {
 function setupCheckDomainsCommand(program) {
     program
         .command('check-domains <domains...>')
-        .description('Birden fazla domain için farklı uzantıları kontrol eder')
+        .description('🚀 Çoklu domain kaşifi - Birden fazla domain için toplu uzantı taraması')
         .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
         .option('-t, --timeout <ms>', 'Zaman aşımı süresi (milisaniye)', '5000')
         .action(async (domains, options) => {
@@ -55,7 +55,7 @@ function setupCheckDomainsCommand(program) {
 function setupCheckAvailabilityCommand(program) {
     program
         .command('check-availability <domain>')
-        .description('Bir domain için farklı uzantıların satın alınıp alınmadığını kontrol eder')
+        .description('💎 Domain hazine dedektörü - Müsait uzantıları keşfeder')
         .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
         .action(async (domain, options) => {
             const checker = new SiteChecker();
@@ -78,7 +78,7 @@ function setupCheckAvailabilityCommand(program) {
 function setupFindAvailableCommand(program) {
     program
         .command('find-available <domains...>')
-        .description('Birden fazla domain için müsait olanları bulur')
+        .description('🎁 Hazine avcısı - Çoklu domain içinde müsait olanları yakalar')
         .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
         .action(async (domains, options) => {
             const checker = new SiteChecker();

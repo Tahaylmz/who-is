@@ -6,7 +6,7 @@ const ExtensionConfig = require('../utils/extensionConfig');
 function setupWordHuntCommand(program) {
     program
         .command('word-hunt <keyword>')
-        .description('Verilen kelimeden müsait domain kombinasyonları arar')
+        .description('🎯 Kelime sihirbazı - AI destekli yaratıcı domain kombinasyonları üretir')
         .option('-l, --limit <num>', 'Maksimum kontrol edilecek kombinasyon sayısı', '50')
         .option('-e, --extensions <exts>', 'Kontrol edilecek uzantılar (virgülle ayırın)', null)
         .option('--min-length <num>', 'Minimum domain uzunluğu', '3')
