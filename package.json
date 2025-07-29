@@ -1,4 +1,5 @@
 {
+    "$schema": "https://json.schemastore.org/package.json",
     "name": "who-is-site-checker",
     "version": "1.0.0",
     "description": "Çok hızlı web sitesi durum kontrol sistemi",
