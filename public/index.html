@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who-Is - Modern Domain & Site Checker</title>
+    <meta name="description" content="Modern ve hızlı domain availability checker ve site status monitor">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
+    
+    <!-- CSS Framework & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-globe-americas text-3xl text-blue-600 mr-3"></i>
+                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Who-Is</h1>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Stats -->
+                    <div class="hidden md:flex items-center space-x-6">
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-blue-600" id="totalChecks">0</div>
+                            <div class="text-xs text-gray-500">Total Checks</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-green-600" id="onlineSites">0</div>
+                            <div class="text-xs text-gray-500">Online Sites</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-purple-600" id="availableDomains">0</div>
+                            <div class="text-xs text-gray-500">Available Domains</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="themeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-moon text-gray-600 dark:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-16 min-h-screen">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
+                    Modern Domain & Site Checker
+                </h2>
+                <p class="text-xl md:text-2xl mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+                    AI destekli domain avcılığı, site durumu kontrolü ve trend analizi
+                </p>
+            </div>
+        </section>
+
+        <!-- Features Tabs -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <!-- Tab Navigation -->
+            <div class="flex flex-wrap justify-center mb-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-2">
+                <button class="tab-btn active flex-1 min-w-max px-4 py-3 mx-1 rounded-lg transition-all duration-300" data-tab="site-check">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span class="hidden sm:inline">Site Check</span>
+                </button>
+                <button class="tab-btn flex-1 min-w-max px-4 py-3 mx-1 rounded-lg transition-all duration-300" data-tab="domain-hunt">
+                    <i class="fas fa-search mr-2"></i>
+                    <span class="hidden sm:inline">Domain Hunt</span>
+                </button>
+                <button class="tab-btn flex-1 min-w-max px-4 py-3 mx-1 rounded-lg transition-all duration-300" data-tab="ai-generator">
+                    <i class="fas fa-robot mr-2"></i>
+                    <span class="hidden sm:inline">AI Generator</span>
+                </button>
+                <button class="tab-btn flex-1 min-w-max px-4 py-3 mx-1 rounded-lg transition-all duration-300" data-tab="analytics">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    <span class="hidden sm:inline">Analytics</span>
+                </button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="tab-content-container">
+                <!-- Site Check Tab -->
+                <div id="site-check" class="tab-content active">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <!-- Single Site Check -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-globe mr-3 text-blue-600"></i>
+                                Single Site Check
+                            </h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Website URL
+                                    </label>
+                                    <div class="flex space-x-2">
+                                        <input type="text" id="siteInput" 
+                                               placeholder="örn: google.com"
+                                               class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                                        <button onclick="checkSite()" 
+                                                class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center">
+                                            <i class="fas fa-search mr-2"></i>
+                                            Check
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Quick Check Buttons -->
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="quickCheck('google.com')" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                                        Google
+                                    </button>
+                                    <button onclick="quickCheck('github.com')" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                                        GitHub
+                                    </button>
+                                    <button onclick="quickCheck('stackoverflow.com')" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                                        StackOverflow
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bulk Site Check -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-list mr-3 text-green-600"></i>
+                                Bulk Site Check
+                            </h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Multiple Sites (one per line)
+                                    </label>
+                                    <textarea id="bulkSites" rows="6"
+                                              placeholder="google.com&#10;github.com&#10;stackoverflow.com"
+                                              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"></textarea>
+                                </div>
+                                
+                                <div class="flex space-x-2">
+                                    <button onclick="checkBulkSites()" 
+                                            class="flex-1 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors flex items-center justify-center">
+                                        <i class="fas fa-play mr-2"></i>
+                                        Check All
+                                    </button>
+                                    <button onclick="loadSampleSites()" 
+                                            class="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors">
+                                        <i class="fas fa-file-import mr-2"></i>
+                                        Sample
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="siteResults" class="mt-8 hidden">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-chart-bar mr-3 text-purple-600"></i>
+                                Results
+                            </h3>
+                            <div id="siteResultsContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domain Hunt Tab -->
+                <div id="domain-hunt" class="tab-content hidden">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <!-- Domain Search -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-crosshairs mr-3 text-orange-600"></i>
+                                Domain Hunt
+                            </h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Keywords
+                                    </label>
+                                    <input type="text" id="domainKeywords" 
+                                           placeholder="örn: tech, startup, ai"
+                                           class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Extensions
+                                        </label>
+                                        <select id="domainExtensions" multiple class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                                            <option value="com">com</option>
+                                            <option value="net">net</option>
+                                            <option value="org">org</option>
+                                            <option value="io">io</option>
+                                            <option value="co">co</option>
+                                            <option value="ai">ai</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Max Length
+                                        </label>
+                                        <input type="number" id="maxLength" value="10" min="3" max="20"
+                                               class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                                    </div>
+                                </div>
+                                
+                                <button onclick="huntDomains()" 
+                                        class="w-full px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors flex items-center justify-center">
+                                    <i class="fas fa-search mr-2"></i>
+                                    Start Domain Hunt
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Domain Availability Check -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-check mr-3 text-blue-600"></i>
+                                Domain Availability
+                            </h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Domain List (one per line)
+                                    </label>
+                                    <textarea id="domainList" rows="8"
+                                              placeholder="example.com&#10;mysite.net&#10;startup.io"
+                                              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"></textarea>
+                                </div>
+                                
+                                <button onclick="checkDomainAvailability()" 
+                                        class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center">
+                                    <i class="fas fa-check-circle mr-2"></i>
+                                    Check Availability
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domain Results -->
+                    <div id="domainResults" class="mt-8 hidden">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-list-ul mr-3 text-green-600"></i>
+                                Domain Results
+                            </h3>
+                            <div id="domainResultsContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Generator Tab -->
+                <div id="ai-generator" class="tab-content hidden">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+                            <h3 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white flex items-center justify-center">
+                                <i class="fas fa-robot mr-3 text-purple-600"></i>
+                                AI Domain Generator
+                            </h3>
+                            
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Business Description
+                                        </label>
+                                        <textarea id="businessDescription" rows="4"
+                                                  placeholder="Describe your business, startup idea, or project..."
+                                                  class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"></textarea>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Category
+                                        </label>
+                                        <select id="businessCategory" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                                            <option value="tech">Technology</option>
+                                            <option value="business">Business</option>
+                                            <option value="creative">Creative</option>
+                                            <option value="health">Health</option>
+                                            <option value="finance">Finance</option>
+                                            <option value="education">Education</option>
+                                            <option value="ecommerce">E-commerce</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Number of Suggestions
+                                        </label>
+                                        <input type="range" id="suggestionCount" min="5" max="50" value="20" 
+                                               class="w-full accent-purple-600">
+                                        <div class="text-center text-sm text-gray-600 dark:text-gray-400">
+                                            <span id="suggestionCountValue">20</span> domains
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Preferred Extensions
+                                        </label>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            <label class="flex items-center">
+                                                <input type="checkbox" value="com" checked class="ai-extension-checkbox mr-2">
+                                                <span class="text-sm">.com</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="checkbox" value="io" class="ai-extension-checkbox mr-2">
+                                                <span class="text-sm">.io</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="checkbox" value="ai" class="ai-extension-checkbox mr-2">
+                                                <span class="text-sm">.ai</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="checkbox" value="co" class="ai-extension-checkbox mr-2">
+                                                <span class="text-sm">.co</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="checkbox" value="net" class="ai-extension-checkbox mr-2">
+                                                <span class="text-sm">.net</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="checkbox" value="org" class="ai-extension-checkbox mr-2">
+                                                <span class="text-sm">.org</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Options
+                                        </label>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center">
+                                                <input type="checkbox" id="brandableOnly" class="mr-2">
+                                                <span class="text-sm">Brandable names only</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="checkbox" id="shortNamesOnly" class="mr-2">
+                                                <span class="text-sm">Short names (≤8 chars)</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="checkbox" id="checkAvailability" checked class="mr-2">
+                                                <span class="text-sm">Check availability</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 text-center">
+                                <button onclick="generateDomains()" 
+                                        class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                                    <i class="fas fa-magic mr-2"></i>
+                                    Generate AI Domains
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Results -->
+                    <div id="aiResults" class="mt-8 hidden">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-sparkles mr-3 text-yellow-600"></i>
+                                AI Generated Domains
+                            </h3>
+                            <div id="aiResultsContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div id="analytics" class="tab-content hidden">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <!-- Performance Charts -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-chart-line mr-3 text-blue-600"></i>
+                                Performance Analytics
+                            </h3>
+                            <canvas id="performanceChart" width="400" height="200"></canvas>
+                        </div>
+
+                        <!-- Domain Trends -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-trending-up mr-3 text-green-600"></i>
+                                Domain Trends
+                            </h3>
+                            <div id="domainTrends">
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <span class="font-medium">.ai domains</span>
+                                        <span class="text-green-600 font-bold">+25%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <span class="font-medium">.io domains</span>
+                                        <span class="text-green-600 font-bold">+18%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <span class="font-medium">.com domains</span>
+                                        <span class="text-blue-600 font-bold">Stable</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 lg:col-span-2">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                                <i class="fas fa-history mr-3 text-purple-600"></i>
+                                Recent Activity
+                            </h3>
+                            <div id="recentActivity" class="space-y-3">
+                                <!-- Activity items will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 text-center">
+            <div class="animate-spin w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p class="text-lg font-semibold text-gray-900 dark:text-white">Processing...</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Please wait while we check your domains</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Who-Is - Modern Domain & Site Checker</p>
+            <p class="text-gray-400 mt-2">Built with Clean Architecture & Modern Web Technologies</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/scripts/app.js"></script>
+</body>
+</html>

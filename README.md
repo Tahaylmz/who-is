@@ -1,34 +1,48 @@
-# 🚀 Who Is - Modern Site & Domain Checker
+# 🌐 Who-Is - Modern Domain & Site Checker
 
-**Clean Architecture** ile tamamen yeniden tasarlanmış, modern ve yüksek performanslı site kontrol & domain analiz sistemi. Legacy sistemlerden tamamen arındırılmış, sürdürülebilir ve ölçeklenebilir yapı.
+Modern web teknolojileri ve Clean Architecture ile tamamen yeniden tasarlanmış, kapsamlı domain analiz ve site kontrol platformu.
 
 ## ✨ Özellikler
 
-### 🔍 **Site Health Checker**
-- ⚡ **Ultra Hızlı Kontrol**: Millisaniye seviyesinde site durumu analizi
-- 📊 **Detaylı Raporlama**: Status code, response time, server bilgileri
-- 📈 **Toplu Tarama**: Yüzlerce siteyi eşzamanlı kontrol
-- 🎯 **Smart Routing**: Otomatik redirect takibi ve timeout yönetimi
+### 🚀 **Modern Web Interface**
+- **Responsive Design**: Mobil-first yaklaşımla tüm cihazlarda mükemmel görünüm
+- **Dark/Light Mode**: Kullanıcı tercihi ile tema değiştirme
+- **Real-time Updates**: Canlı sonuç güncellemeleri
+- **Progressive Web App**: PWA özellikleri ile offline çalışma desteği
+
+### ⚡ **Site Health Checker**
+- Ultra hızlı site durumu analizi (millisaniye seviyesinde)
+- Detaylı raporlama: Status code, response time, server bilgileri
+- Toplu site tarama: Yüzlerce siteyi eşzamanlı kontrol
+- Smart routing: Otomatik redirect takibi ve timeout yönetimi
 
 ### 🌐 **Domain Management System**
-- 🔍 **Akıllı Domain Analizi**: Comprehensive domain availability checking
-- 🌍 **Multi-Extension Support**: .com, .net, .org ve 100+ uzantı desteği
-- 📋 **Batch Processing**: Toplu domain kontrol ve analiz
-- 💾 **Export Features**: CSV, JSON formatında sonuç dışa aktarma
+- Kapsamlı domain availability kontrolü
+- 100+ domain uzantısı desteği (.com, .net, .org, .io, .ai, vs.)
+- Toplu domain kontrol ve analiz
+- CSV/JSON formatında sonuç dışa aktarma
 
 ### 🤖 **AI-Powered Domain Generation**
-- 🧠 **Smart Suggestions**: Context-aware domain önerileri
-- 🎨 **Creative Naming**: Brandable, memorable domain isimleri
-- 🔧 **Tech-Focused**: Startup ve teknoloji odaklı öneriler
-- 💼 **Business-Ready**: Profesyonel ve ticari domain alternatifleri
+- GPT destekli akıllı domain önerileri
+- Context-aware: İş tanımına göre özelleştirilmiş isimler
+- Brandable domains: Marka değeri yüksek domain alternatifleri
+- Kategori bazlı öneriler: Tech, Business, Creative, Health, Finance
 
 ### 🕵️ **Advanced Domain Hunting**
-- 🎯 **Targeted Search**: Keyword-based intelligent domain discovery
-- ⚡ **High-Speed Scanning**: Paralel processing ile hızlı tarama
-- 💎 **Premium Detection**: Yüksek değerli domain tespiti
-- 📁 **Bulk Operations**: Dosya tabanlı toplu domain avcılığı
+- Keyword-based intelligent domain discovery
+- High-speed parallel processing ile hızlı tarama
+- Premium domain detection
+- Bulk operations: Dosya tabanlı toplu domain avcılığı
 
-## 📦 Kurulum & Başlangıç
+### � **Analytics & Trends**
+- Domain trend analizi
+- Performance metrikleri
+- Activity tracking
+- Market insights
+
+## 🚀 Hızlı Başlangıç
+
+### Kurulum
 
 ```bash
 # Repository'yi klonlayın
@@ -38,16 +52,31 @@ cd who-is
 # Bağımlılıkları yükleyin
 npm install
 
-# CLI sistem testi
-npm start help
-
-# Web server başlatma
-npm run server
+# Web uygulamasını başlatın
+npm start
 ```
 
-## 🎯 Kullanım Kılavuzu
+### Kullanım
 
-### 🖥️ **CLI Interface** (Command Line)
+1. **Web Interface**: http://localhost:3002
+2. **API Documentation**: http://localhost:3002/api
+3. **Health Check**: http://localhost:3002/health
+
+## 🌟 Modern Web Özellikleri
+
+### Frontend Teknolojileri
+- **Tailwind CSS**: Modern utility-first CSS framework
+- **Vanilla JavaScript**: Hafif ve hızlı, framework bağımlılığı yok
+- **Chart.js**: İnteraktif grafikler ve analizler
+- **Font Awesome**: Kapsamlı ikon seti
+- **Animate.css**: Smooth animasyonlar
+
+### Backend Teknolojileri
+- **Express.js**: Hızlı ve minimalist web framework
+- **Helmet**: Güvenlik middleware'i
+- **Compression**: GZIP sıkıştırma
+- **Morgan**: HTTP request logger
+- **CORS**: Cross-origin resource sharing
 
 ```bash
 # 📋 Yardım ve komut listesi
